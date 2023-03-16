@@ -1,0 +1,39 @@
+site_name: Cycle 0 - Les bases
+site_url: ""
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+
+plugins: 
+  - diagrams
+  - mermaid2  
+  - mkdocs-video:
+      css_style:
+        width: "80%"
+        autoplay: "false"
+
+extra_css:
+  - css/style.css
+
+theme:
+  features:
+    - content.code.annotate 
+
+theme: cosmo
+
+nav:
+  - Installation: 'installation.md'
+  - Présentation: 'presentation.md'
+  - Descriptif: 'index.md'
+  - MémoTD: 'memoTD.md'
+  - MémoTP: 'memoTP.md'
+  - RessourcesTP: 'ressourcesTP.md'
+  - AnnalesTD: 'annalesTD.md'
+  - AnnalesTP: 'annalesTP.md'
+
+use_directory_urls: false
+
+copyright: IUT de Bordeaux 
+
