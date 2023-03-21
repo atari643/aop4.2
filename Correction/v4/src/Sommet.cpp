@@ -1,8 +1,9 @@
 #include "Sommet.h"
 
-IdManager Sommet::m_id_manager;
+// IdManager Sommet::m_id_manager;
+int Sommet::m_dernier_id = 0;
 
-Sommet::Sommet(bool valide) : m_id(valide ? m_id_manager.obtenir() : -1)
+Sommet::Sommet(bool valide) : m_id(valide ? m_dernier_id++ : INVALIDE_ID)
 {
 }
 

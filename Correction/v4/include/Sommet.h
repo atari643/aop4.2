@@ -1,13 +1,14 @@
 #ifndef NOEUD_H
 #define NOEUD_H
 
-#include "IdManager.h"
 
 class Sommet
 {
-private :
-    static IdManager m_id_manager;
+private:
+    static const int INVALIDE_ID = -1;
+    static int m_dernier_id;
     int m_id;
+
 public:
     Sommet(bool valide = true);
     int id() const;
@@ -15,7 +16,6 @@ public:
     bool valide() const;
     bool operator<(const Sommet &n) const;
     bool operator==(const Sommet &n) const;
-  
 };
 
 #endif
