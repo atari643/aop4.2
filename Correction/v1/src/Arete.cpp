@@ -1,8 +1,9 @@
 #include "Arete.h"
 
-IdManager Arete::m_id_manager;
+// IdManager Arete::m_id_manager;
+int Arete::m_dernier_id = 0;
 
-Arete::Arete(bool valide) : m_id(valide ? m_id_manager.obtenir() : -1)
+Arete::Arete(bool valide) : m_id(valide ? m_dernier_id++ : INVALIDE_ID)
 {}
 
 int Arete::id() const {
@@ -10,7 +11,7 @@ int Arete::id() const {
 }
 
 bool Arete::valide() const{
-    return (m_id != -1);
+    return (m_id != INVALIDE_ID);
 }
 
 bool Arete::operator<(const Arete &e) const {
