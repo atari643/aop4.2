@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Etape 1 - AOP 4.2 Programmer en C++ sans pointeur (ou presque)</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/purebasic.min.css">
+        <link href="css/style.css" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">AOP 4.2 Programmer en C++ sans pointeur (ou presque)</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="index.html" class="nav-link">Descriptif</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="etape1.html" class="nav-link">Etape 1</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="etape2.html" class="nav-link">Etape 2</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="etape3.html" class="nav-link">Etape 3</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="etape4.html" class="nav-link">Etape 4</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="etape5.html" class="nav-link">Etape 5</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a rel="prev" href="index.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="etape2.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#charger-et-manipuler-un-graphe" class="nav-link">Charger et manipuler un graphe</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#organiser-son-code-source" class="nav-link">Organiser son code source</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#declarer-et-implementer-sa-1ere-classe-en-c" class="nav-link">Déclarer et implémenter sa 1ère classe en C++</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#implementer-les-classes-sommet-et-arete" class="nav-link">Implémenter les classes Sommet et Arete</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#classe-arete" class="nav-link">Classe Arete</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#classe-graphe" class="nav-link">Classe Graphe</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="charger-et-manipuler-un-graphe">Charger et manipuler un graphe</h1>
+<p>Avant toute chose, nous vous recommandons vivement d'utiliser un dépot gitLab pour versionner votre code source tout au long de la semaine.</p>
+<h2 id="organiser-son-code-source">Organiser son code source</h2>
+<p>Les différentes archives disponibles sur la page Moodle du cours,  nous avons préparer une certaine architecture de code. Merci de bien la respecter tout au long de la semaine :</p>
+<ul>
+<li>bin : contiendra l'exécutable une fois généré</li>
+<li>obj : contiendra les fichiers générés et utilisés lors de la compilation</li>
+<li>src : contiendra l'implémentation des classes (.cpp) et le fichier main (oui, tout comme en C, la déclaration et l'implémentation sont séparées)</li>
+<li>include : contiendra la déclaration des classes (fichier entête, .h)</li>
+<li>datasets : contiendra le (les) jeu(x) de données pour exécuter votre code</li>
+<li>Makefile : c'est un fichier permettant de définir les règles de compilation permettant de construire l'exécutable. Nous n'aborderons pas cet aspect qui est assez compliqué en C++ et n'est pas l'objet de cette AOP.</li>
+</ul>
+<h2 id="declarer-et-implementer-sa-1ere-classe-en-c">Déclarer et implémenter sa 1ère classe en C++</h2>
+<p>Commencer par télécharger l'archive correspondant à cette <a href="https://moodle1.u-bordeaux.fr/course/view.php?id=12439">étape</a>.</p>
+<p>Comme évoqué plus haut, en C++, la déclaration d'une classe est en général séparée de son implémentation.
+Le fichier entête (<em>header</em>) contiendra la déclaration de la classe, ses attributs, ses méthodes et leurs visibilité.
+Dans l'exemple si dessous, vous trouverez la déclaration d'une classe Foo dans un fichier Foo.h (par convention le fichier porte le nom de la classe, Majuscule incluse) :</p>
+<pre><code>#ifndef FOO_H   // &lt;--- garde, permet de ne pas déclarer la classe plusieurs fois lors d'inclusion multiples
+#define FOO_H   // on définit FOO_H afin de ne plus redéfinir la classe
+
+class Foo {
+    public:    // les méthodes et attibuts en dessous sont publiques
+
+        Foo();   // le constructeur porte le nom de la classe
+        void bar(); 
+
+    private:  // les méthodes et attributs en dessous sont privés
+
+        // un attribut
+        int m_attr1;
+
+        //une méthode
+        void methodePrivee(); // on utilise le camel case
+};
+
+#endif  // &quot;ferme&quot; ifndef
+</code></pre>
+<p>On va ensuite implémenter cette classe dans un fichier Foo.cpp (là aussi le nom de fichier porte celui de la classe) :</p>
+<pre><code>#include &lt;iostream&gt; // permet d'afficher dans le terminal
+
+#include &quot;Foo.h&quot; // on inclut la déclaration de classe
+
+using namespace std; // l'espace de nom standard contient un grnad nombre de fonctionnalités 
+
+// on doit préfixer le nom de chaque méthode par le nom de la classe:: sinon le compilateur n'a aucun moyen
+// de savoir qu'il s'agit d'une méthode de cette classe
+Foo::Foo(){
+    m_attr1 = 10;
+}
+
+void Foo::bar() {
+    cout &lt;&lt; &quot;valeur attribut &quot; &lt;&lt; m_attr1 &lt;&lt; endl; // sans &quot;using namespace std;&quot;, il faudrait spécifier que
+                                                   // cout et endl sont ceux définis dans std. 
+                                                   // Il fautdrait alors écrire :
+                                                   // std::cout &lt;&lt; &quot;valeur attribut &quot; &lt;&lt; m_attr1 &lt;&lt; std::endl;
+}
+
+void Foo::methodePrivee(){
+    cout &lt;&lt; &quot;inutile&quot; &lt;&lt; endl;
+}
+</code></pre>
+<h2 id="implementer-les-classes-sommet-et-arete">Implémenter les classes Sommet et Arete</h2>
+<p>Nous avons choisi d'utiliser d'une modélisation plus que rudimentaire des sommets et arêtes du graphe. Dans ce projet, un sommet sera modéliser par un identifiant (de même pour une arête). Comme il est parfois utile de pouvoir manipuler un sommet (ou une arête) invalide nous utiliserons une valeur d'identifiant spéciale pour cela (typiquement -1).</p>
+<h3 id="la-classe-sommet">La classe Sommet</h3>
+<p>Ajoutez dans le répertoire <strong>include</strong> un fichier Sommet.h contenant les méthodes suivantes :</p>
+<ul>
+<li>un constructeur prenant en paramètre un booléen (bool) permettant de savoir si le sommet est valide.</li>
+<li>une méthode publique id() retournant l'identifiant du sommet</li>
+<li>une méthode publique valide() permettant de savoir si le sommet est valide</li>
+</ul>
+<p>Comme on souhaite pouvoir attribuer un identifiant différent à chaque sommet (sauf si on fait une copie), il faut ajouter à l'attribut stockant l'identifiant du sommet, un attribut statique (mot-clef <em>static</em>, par exemple : static int attribut_statique) contenant la dernière valeur d'identifiant donné à un sommet.</p>
+<p>Ajoutez un fichier dans le répertoire <strong>src</strong> un fichier Sommet.cpp contenant l'implémentation de la classe Sommet.</p>
+<p>La syntaxe permettant d'initialiser un attribut static est la suivante (ajouter une ligne équivalente dans votre fichier SOmmet.cpp) :</p>
+<pre><code>    int Sommet::attribut_static = 0; // si vous avez déclaré un attibut static 
+                                     // de type int dans la classe Sommet
+</code></pre>
+<p>Si vous exécutiez l'instruction suivante :</p>
+<pre><code>    Sommet s;
+</code></pre>
+<p>Alors le compilateur se plainderait car dès lors qu'on définit un constructeur, le constructeur par défaut n'est plus fourni automatiquement. Pour pallier au problème, vous pouvez ajouter un constructeur sans paramètre à la classe Sommet (un sommet par défaut doit alors être valide). Vous pouvez aussi donné une valeur par défaut au paramètre du constructeur que vous avez déclarer :</p>
+<pre><code>    Sommet(bool valide = true);
+</code></pre>
+<p>En déclarant votre constructeur comme cela (il en faut pas changer l'implémentation), si un sommet est instancié sans paramètre, c'est bien lui qui sera appelé.</p>
+<pre><code>    Sommet n ; // appel maintenant le constructeur de Sommet 
+               // en utilisant la valeur par défaut, le sommet sera valide
+    Sommet nInvalide (false); // va instancier un sommet invalide
+</code></pre>
+<h3 id="compiler-le-programme">Compiler le programme</h3>
+<p>Afin de compiler votre code, vous pouvez commenter le contenu de la fonction principale (main) contenue dans le fichier main.cpp ainsi que l'inclusion des fichier Graphe.h et Arete.h. Vous ne pourrez pas l'éxecuter mais cela permettra tout de même de relever d'éventuelles erreurs de syntaxe.</p>
+<p>Pour le compiler, ouvrez un terminal dans le répertoire racine du projet (celui contenant le fichier Makefile) et taper la commande :</p>
+<pre><code>    make
+</code></pre>
+<p>make est un outils permettant de compiler un programme (en C ou C++ par exemple) en suivant les règles décrites dans un fichier Makefile. Il est <strong>important</strong> que vous respectiez bien l'arborescence de fichier demadé car le Makefile fourni lui est spécifique.</p>
+<p>Le problème maintenant est que certaines méthodes de la classe Sommet ne peuvent pas être utilisées sur un Sommeet constant, par exemple :</p>
+<pre><code>    const Sommet n;
+</code></pre>
+<p>En effet, n étant constant, il faut pouvoir garantir qu'il ne soit pas modifié par un appel de méthode. Or la méthode id() (mais aussi valide()) ne garantisse pas qu'elle ne modifie pas l'objet courant. Etant donné que ces méthodes ne devraient pas modifier l'objet courant (demander son identifiant à un Sommet ne devrait pasm odifier le Sommet), nous allons déclarer qu'elles ne le font pas en ajoutant le mot-clef <em>const</em></p>
+<pre><code>    int id() const;
+    bool valide() const;
+</code></pre>
+<p>Ajouter ausssi ce mot-clef à la fin de l'entête de la fonction dans le fichier Sommet.cpp</p>
+<p>Ces méthodes sont dites constantes, elles garantissent qu'elles ne modifient pas l'état interne de l'objet et peuvent maintenant être appelées par des Sommet constant.</p>
+<p>Compilez à nouveau votre code et s'il n'y a pas d'erreur, passez à la suite.</p>
+<h2 id="classe-arete">Classe Arete</h2>
+<p>Inspirez vous de ce que vous avez fait pour Sommet et déclarez (dans le répertoire include) puis implémentez (dans le répertoire src) la classe Arete qui aura les mêmes caratéristiques.</p>
+<p>Compilez à nouveau et passez à la suite.</p>
+<h2 id="classe-graphe">Classe Graphe</h2>
+<p>Théoriquement, un graphe G est constitué d'un ensemble de sommets et d'un ensemble d'arêtes. Dans notre modélisation, c'est la classe graphe qui maintiendra à jour ses arêtes et sommets.</p>
+<p>Voici les méthodes que nous souhaitons pouvoir utilisées:</p>
+<ul>
+<li>Sommet ajouterSommet();</li>
+<li>Arete ajouterArete(const Sommet &amp; n1, const Sommet&amp; n2);</li>
+<li>void supprimerSommet( const Sommet &amp;n);</li>
+<li>
+<p>void supprimerArete(const  Arete &amp;e);</p>
+</li>
+<li>
+<p>std::set<Sommet> sommets() const;</p>
+</li>
+<li>std::set<Arete> aretes() const;</li>
+<li>std::set<Sommet> voisins(const Sommet&amp; n) const;</li>
+<li>std::set<Arete> incidentes(const Sommet&amp; n) const;</li>
+<li>Sommet source(const Arete &amp;e) const;</li>
+<li>Sommet destination(const Arete &amp;e) const;</li>
+<li>int degre(const Sommet&amp; n) const;</li>
+<li>int nbSommets() const;</li>
+<li>int nbAretes() const;</li>
+</ul>
+<p>NB : Il ne sera pasnécessaire d'ajouter de constructeur par défaut car celui qui est founir implicitement sera bien suffisant. Si vous souhaitez tout de même indiquer explicitement que vous souhaitez avec un constructeur avec un comportement par défaut. Vous pourrez ajouter dans la déclaration (uniquement, il n'y a rien à ajouter dans l'implémentation) de la classe Graphe :</p>
+<pre><code>    Graphe() = default;
+</code></pre>
+<p>Comme vous pouvez le voir, un bon nombre de méthodes de cette classe sont déclarées comme constante. C'est une bonne pratique ! Il faut déclarer comme constante toute méthode qui ne modifie pas l'objet.</p>
+<p>Vous pouvez aussi noter que les paramètres de certaines de ces méthodes sont des constantes (par exemple dans la méthode voisins) et que le nom du paramètre est précédé du caractère &amp;. C'est ce que l'on appelle un passage par référence, cela indique au compilateur que l'argument d'appel utilisé est passé en entrée-sortie (il peut donc être modifié par la fonction/méthode appelée). Ce passage de paramètre, qui n'existe pas en C, permet donc de ne pas copier l'objet (gain en performance) et comme nous l'avons déclaré ces références comme <em>const</em>, ces références ne pourront pas être modifiées. Cela ne change en rien la manière d'appeler l'une de ces fonctions, par exemple :</p>
+<pre><code>    Graphe g;
+    ...
+    Sommet n = g.ajouterSommet();
+    ...
+    int d = g.degre(n);
+
+</code></pre>
+<p>Enfin, Vous pouvez remarquer  l'utilisation d'un type que vous ne connaissez pas : <strong>set</strong>. Les set en C++ font partie de la bibliothèque standard (std). Ils fonctionnent de manière similaire au TreeSet en java, en effet pour pouvoir sotcker des objets dans un set, il faut pouvoir les comparer.  </p>
+<p>NB : Comme nous n'avons pas ouvert l'espace de nom std dans le fichier (c'est une mauvaise pratique d'ouvrir les espaces de nom dans les fichiers entête car en les incluant dans un autre fichier,  on y ouvrirait aussi l'espace de nom)</p>
+<h3 id="ajout-des-operateurs-de-comparaison-dans-sommet-et-arete">Ajout des operateurs de comparaison dans Sommet et Arete</h3>
+<p>Vous allez donc ajouter un operateur de comparaison dans les classes Sommet et Arete. Un opérateur de comparaison en C++ suit toujours la même syntaxe. Pour une classe Foo par exemple :</p>
+<pre><code>    bool operator&lt;(const Foo &amp; autre) const;
+</code></pre>
+<pre><code>    bool Foo::operator&lt;(const Foo &amp; autre) const {
+        ...
+        return le_résultat_de_la_comparaison
+    }
+</code></pre>
+<p>Dès lors que cet opérateur est défini, il devient possible de comparer les objets:</p>
+<pre><code>    Graphe g;
+    ...
+    Sommet n1 = g.ajouterSommet();
+    Sommet n2 = g.ajouterSommet();
+    ...
+    if( n1 &lt; n2 ){
+        ...
+    }
+
+</code></pre>
+<p>NB : il est possible de (re)définir d'autres operateurs comme +, <em>, /, +=,</em>etc.* comme nous le verrons plus tard</p>
+<p>Ajoutez cet operateur de comparaison dans les classes Sommet et Arete. Assurez vous que votre code compile toujours.</p>
+<h3 id="choix-de-la-structure-de-donnees-de-la-classe-graphe">Choix de la structure de données de la classe Graphe</h3>
+<p>Nous souhaitons que chacune de ces méthodes puissent s'exécuuter dans un temps raisonnable. Il faut donc choisir les structures de données appripriées, quitte à stocker plusieurs fois la même informations.</p>
+<p>Nous proposons donc de stocker l'ensemble des Sommet et Arete du graphe dans un ensemble (<strong>set</strong>) puisque cela est maintenant possible. Cela permettra de retourner rapidement l'ensemble des Sommet (ou Arete) d'un graphe.</p>
+<pre><code>    std::set&lt;Arete&gt; aretes;
+    std::set&lt;Sommet&gt; sommets;
+</code></pre>
+<p>Le graphe devra aussi maintenir une correspondance entre ses Arete et les Sommet extrémités de celles-ci. Pour cela nous allons utiliser le type <strong>map</strong> (aussi dans std) qui fonctionne de façon similaire aux TreeMap en java. Cette <em>map</em> mettra en correspondance, une Arete (clef) avec une paire de Sommet (ses extrémités). En C++, il existe un type <strong>pair</strong> qui permet de stocker une paire de valeur (à la différence de java).</p>
+<pre><code>    std::map&lt;Arete, std::pair&lt;Sommet, Sommet&gt; &gt; aretes2Extremites;
+</code></pre>
+<p>Le graphe devra aussi maintenir une correspondance entre chaque Sommet et les Arete qui lui sont incidentes. Nous utiliserons ici aussi une <em>map</em> qui associera à chaque Sommet, l'ensemble des Arete incidentes :</p>
+<pre><code>    std::map&lt; Sommet, std::set&lt;Arete&gt; &gt; sommets2Incidentes;
+</code></pre>
+<p>Déclarez et implémentez la classe Graphe. Nous vous conseillons de finir par les méthodes de suppression qui sont un peu plus complexes (en particulier la suppression de Sommet puisqu'il faut mettre à jour correctement toute la structure de données) que les autres.</p>
+<p>Compilez !</p>
+<h3 id="chargement-du-graphe">Chargement du graphe</h3>
+<p>La manipulation de fichiers en C++ est relativement compliquée (bien plus qu'en python ou java par exemple). Nous vous fournissons donc le code permettant de charger un graphe. Vous trouverez donc un fichier utils.h et utils.cpp contenant une fonction utilitaire pour découper une chaine de caractères (std::string) en tableau de chaines de caractères (std::vector&lt;std::string>, un "équivalent" des ArrayList en java).</p>
+<p>Ajouter dans la classe Graphe, une méthode publique charger comme suit:</p>
+<pre><code>    bool Graphe::charger(std::string fichier)
+    {
+        map&lt;int, Sommet&gt; idSommet;
+
+        // Ajout des sommets
+        bool sommetsFinis = false;
+        std::ifstream in(fichier.c_str());
+        while (!in.eof())
+        {
+            char ligne[10000];
+            in.getline(ligne, 10000);
+            string lignes(ligne);
+            lignes = lignes.substr(0, lignes.size()-1);
+            if (lignes == &quot;#sommets&quot;){
+                continue;
+            }
+            else if (lignes == &quot;#aretes&quot;)
+            {
+                sommetsFinis = true;
+            }
+            else if (!sommetsFinis)
+            {
+                int id = stoi(lignes);
+                if (idSommet.find(id) != idSommet.end())
+                    return false; // deux fois le meme identifiant dans le fichier
+                Sommet n = ajouterSommet();
+                idSommet[id] = n;
+            }
+            else if (sommetsFinis &amp;&amp; lignes != &quot;&quot;)
+            {
+                vector&lt;string&gt; items;
+                decouper(lignes, items, &quot; &quot;);
+                if (items.size() != 2)
+                    return false;
+
+                int id1 = stoi(items[0]);
+                int id2 = stoi(items[1]);
+
+                // test si les id sont corrects
+                if (idSommet.find(id1) == idSommet.end() || idSommet.find(id2) == idSommet.end())
+                    return false;
+                Sommet n1 = idSommet[id1];
+                Sommet n2 = idSommet[id2];
+                ajouterArete(n1, n2);
+            }
+        }
+        return true;
+    }
+</code></pre>
+<p>Cette méthode correspond au format de fichier en entrée que vous pourrez trouver dans datasets.</p>
+<p>Décommentez les lignes du main afin que le code s'exécute maintenant totalement. Compilez et exécutez !</p>
+<p>Pour exécuter votre code, tapez la commande suivante dans un terminal (à la racine du projet):</p>
+<pre><code>    ./bin/demo datasets/hollywood.csv
+</code></pre>
+<p>Vous devriez obtenir le même affichage que l'exécutable <strong>demo1</strong>. Si ce n'est pas le cas, corrigez votre code avant de passer à l'étape 2.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>IUT de Bordeaux</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
