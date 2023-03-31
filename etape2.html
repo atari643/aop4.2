@@ -110,23 +110,23 @@
 
 <h1 id="ajouter-des-proprietes-graphiques">Ajouter des propriétés graphiques</h1>
 <p>L'objectif de l'étape est d'ajouter aux graphes que nous manipulerons des informations graphiques (position, couleur, etc).</p>
-<p>Pour commencer, il faut changer votre architecture de fichiers car nous allons ajouter de nouveaux répertoire :</p>
+<p>Pour commencer, il faut changer votre architecture de fichiers car nous allons ajouter de nouveaux répertoires :</p>
 <ul>
-<li>lib : contient la bibliothèque libVueGraphe.a qui permettra d'afficher votre graphe (pour le moment nous n'implémenterons pas l'affichage graphique et nous reposerons sur cette bibliothèque)</li>
-<li>fonts : contient un fichier de police utilisée pour afficher du texte dans l'interface graphique (les labels associées aux noeuds)</li>
-<li>cxx : qui est vide initialement et qui contiendra une classe permettant de gérer les propriétés des éléments du graphe (position, couleur, etc). Ne vous en préoccupez pas pour le moment</li>
+<li>lib : contient la bibliothèque libVueGraphe.a qui permettra d'afficher votre graphe (pour le moment nous n'implémenterons pas l'affichage graphique et nous nous reposerons sur cette bibliothèque)</li>
+<li>fonts : contient un fichier de police utilisé pour afficher du texte dans l'interface graphique (les labels associés aux noeuds)</li>
+<li>cxx : qui est vide initialement et qui contiendra une classe permettant de gérer les propriétés des éléments du graphe (position, couleur, etc). Ne vous en préoccupez pas pour le moment.</li>
 </ul>
-<p>Téléchargez depuis la page Moodle, la deuxième archive contenant les répertoires (tels qu'ils doivent être, ) ainsi que les fichiers main.cpp, utils.h et utils.cpp ainsi qu'un Makefile mis à jour.</p>
+<p>Téléchargez depuis la page Moodle, la deuxième archive contenant les répertoires (tels qu'ils doivent être), ainsi que les fichiers main.cpp, utils.h et utils.cpp ainsi qu'un Makefile mis à jour.</p>
 <h2 id="implementation-dune-classe-coord">Implémentation d'une classe Coord</h2>
-<p>Cette classe permettra de stocker les coordonnées d'un sommet (et éventuelement d'une brisure d'une arête mais nous ne nous intéresserons pas).</p>
-<p>Pour cela déclarer une classe Coord dans <strong>include</strong> qui aura 2 attributs (ou un tableau de 2 valeurs) permettant de stocker une abscisse et une ordonnée. Elle devra aussi contenir les méthodes suivantes :</p>
+<p>Cette classe permettra de stocker les coordonnées d'un sommet (et éventuellement d'une brisure d'une arête mais nous ne nous y intéresserons pas).</p>
+<p>Pour cela déclarez une classe Coord dans <strong>include</strong> qui aura 2 attributs (ou un tableau de 2 valeurs) permettant de stocker une abscisse et une ordonnée. Elle devra aussi contenir les méthodes suivantes :</p>
 <ul>
 <li>Coord();</li>
 <li>Coord(float x, float y);</li>
 <li>float norm() const;</li>
 </ul>
-<p>où norm() retourner la distance entre la coordonneé et l'origine du repère (0.,0.).</p>
-<p>Afin de faciliter la manipulation des coordonées, déclarez aussi les operateurs suivants:</p>
+<p>où norm() retourne la distance entre la coordonnée et l'origine du repère (0.,0.).</p>
+<p>Afin de faciliter la manipulation des coordonées, déclarez aussi les opérateurs suivants:</p>
 <ul>
 <li>bool operator==(const Coord &amp;c) const ;</li>
 <li>Coord operator+(const Coord &amp;c) const ;</li>
@@ -148,10 +148,10 @@
     c[0] = 0.1;
     c[1] = 0.3;
 </code></pre>
-<p>Nous devons définir l'operateur <strong>[]</strong> :</p>
+<p>Nous devons définir l'opérateur <strong>[]</strong> :</p>
 <pre><code>    float &amp; operator[](int dim);
 </code></pre>
-<p>Comme vous pouvez le remarquer, cette méthode renverra une référence sur l'attribut correspondant de la coordonnées afin qu'on puisse en changer la valeur (comme dans l'exemple ci-dessus). En revanche, telle quelle est déclarée cette méthode ne pourra pas être utilisée si la coordonnées est constante (ou une référence constante) car elle n'est pas déclarée comme méthode constante :</p>
+<p>Comme vous pouvez le remarquer, cette méthode renverra une référence sur l'attribut correspondant de la coordonnée afin qu'on puisse en changer la valeur (comme dans l'exemple ci-dessus). En revanche, telle qu'elle est déclarée, cette méthode ne pourra pas être utilisée si la coordonnée est constante (ou une référence constante) car elle n'est pas déclarée comme méthode constante :</p>
 <pre><code>    void fonction(const Coord &amp; c){
         c[0]; // interdit, ne compilera pas car [] n'est pas constante et que c est une référence constante
         ...
@@ -159,10 +159,10 @@
         co[0]; // idem, co est constant
     }
 </code></pre>
-<p>Nous allons donc surcharger cet operateur (ajouter une deuxième "version"):</p>
+<p>Nous allons donc surcharger cet opérateur (ajouter une deuxième "version"):</p>
 <pre><code>    float operator[](int dim) const;
 </code></pre>
-<p>Vous pouvez noter que l'on a ajouter le mot-clef <em>const</em> et que cette sucharge ne renvoie plus une référence sur l'attribut. Si cette méthode est utilisée, il n'est pas possible de modifier l'attribut concerné. Le choix de l'une ou l'autre des implémentation de l'opérateur se fait automatiquement (vous n'avez rien à faire) :</p>
+<p>Vous pouvez noter que l'on a ajouté le mot-clef <em>const</em> et que cette sucharge ne renvoie plus une référence sur l'attribut. Si cette méthode est utilisée, il n'est pas possible de modifier l'attribut concerné. Le choix de l'une ou l'autre des implémentations de l'opérateur se fait automatiquement (vous n'avez rien à faire) :</p>
 <pre><code>    Coord c;
     const Coord cConst;
     ...
@@ -175,8 +175,7 @@
 </code></pre>
 <p>Si vous n'avez pas d'erreur, passez à la suite.</p>
 <h2 id="implementation-de-la-classe-couleur">Implémentation de la classe Couleur</h2>
-<p>Cette classe est très similaire à la classe Coord. La différence est qu'une couleur n'est pas définie par 2 réels mais par 4 valeurs entières correspondant aux canaux RGB et à la transparence.
-De plus, nous ne ferons pas d'opération arithmétique sur les couleurs, la classe devra donc présenter les méthodes suivantes :</p>
+<p>Cette classe est très similaire à la classe Coord. La différence est qu'une couleur n'est pas définie par 2 réels mais par 4 valeurs entières correspondant aux canaux RGB et à la transparence. De plus, nous ne ferons pas d'opération arithmétique sur les couleurs, la classe devra donc présenter les méthodes suivantes :</p>
 <ul>
 <li>Couleur();</li>
 <li>Couleur(int r, int g, int b, int a);</li>
@@ -191,7 +190,7 @@ De plus, nous ne ferons pas d'opération arithmétique sur les couleurs, la clas
 <p>Cette classe permettra d'associer à des sommets et à des arêtes, une valeur. Elle nous permettra de stocker par exemple, la position d'un sommet ou encore sa couleur.</p>
 <p>Nous ne souhaitons toutefois pas faire une déclaration/implémentation par type de valeur que nous pourrions vouloir associer aux sommets et arêtes. Nous allons donc utiliser une classe générique (<em>template</em>) comme c'est le cas pour les classes set, vector ou map (mais aussi leur équivalent en java).</p>
 <p>En C++, les classes génériques ne sont pas réellement compilées mais elles servent plutôt de patron permettant de générer du code spécifique à son utilisation dans le projet. Par exemple, si on utilise une Propriete<Coord> alors une "implémentation spécifique" de Propriété pour les Coord sera générée.  Pour éviter d'avoir à écrire des règles de compilation complexes (car certains fichiers de src devraient être compilés et d'autres non), nous allons "séparer" cette classe des autres classes.</p>
-<p>Pour déclarer une classe générique (avec une seul paramètre), vous pourrez utiliser la syntaxe suivante:</p>
+<p>Pour déclarer une classe générique (avec une seul paramètre), vous pourrez utiliser la syntaxe suivante :</p>
 <pre><code>template&lt;typename T&gt;
 class MaClasseGenerique {
     private :  //ce n'est pas nécessairement privé
@@ -219,14 +218,14 @@ class MaClasseGenerique {
     }
 </code></pre>
 <p>Implémentez les méthodes de la classe Propriete.</p>
-<p>Ici, il n'est pas possible de "compiler" simplement Propriete car comme nous l'avons vu les classes génériques ne sont pas réellement compilées. Si vous souahitez tout de même le faire (nous ne vous le recommandons pas forcément), il vous faudra ajouter une fonction main à la toute fin de Propriete.hpp (après le #endif) qui instanciera une Propriete. Par exemple :</p>
+<p>Ici, il n'est pas possible de "compiler" simplement Propriete car comme nous l'avons vu les classes génériques ne sont pas réellement compilées. Si vous souhaitez tout de même le faire (nous ne vous le recommandons pas forcément), il vous faudra ajouter une fonction main à la toute fin de Propriete.hpp (après le #endif) qui instanciera une Propriete. Par exemple :</p>
 <pre><code>    int main(){
         Propriete&lt;int&gt; prop;
         ...
         return 0;
     }
 </code></pre>
-<p>puis compiler le fichier avec le même type d'instruction que ci-dessus pour Sommet et Arete. N'oubliez pas après de suuprimer cette fonction main avant de sauvegarder votre fichier (il n'est pas possible en C++ d'avoir deux fonctions main et main.cpp en fournit déjà une).</p>
+<p>puis compilez le fichier avec le même type d'instruction que ci-dessus pour Sommet et Arete. N'oubliez pas après de supprimer cette fonction main avant de sauvegarder votre fichier (il n'est pas possible en C++ d'avoir deux fonctions main et main.cpp en fournit déjà une).</p>
 <h2 id="implementation-de-la-classe-graphevalue">Implémentation de la classe GrapheValue</h2>
 <p>Cette classe permettra d'associer aux éléments du graphe des attributs graphiques (des valeurs). Nous listons ici un ensemble de propriétés nécessaires à la bibliothèque d'affichage que nous vous fournissons.</p>
 <p>Pour cette classe, nous pouvons choisir 2 options : soit GrapheValue agrège un Graphe et un ensemble de Propriete, soit GrapheValue hérite de Graphe et a en plus un ensemble de Propriété. Nous avons choisi d'utiliser un héritage mais une agrégation aurait aussi tout son sens.</p>
@@ -261,13 +260,13 @@ class MaClasseGenerique {
     Propriete&lt;Coord&gt; positions;
     Propriete&lt;std::string&gt; labels;
 </code></pre>
-<p>Comme vous pouvez le remarquer, la méthode charger est suivie du mot-clef <strong>override</strong>, cela indique au compilateur qu'il s'agit d'une redéfinition d'une méthode déjà définie plus haut dans la hiérarchie de classe (ici dans la classe Graphe). Il faut aussi indiquer dans la classe Graphe, que la méthode charger est polymorphe (le polymorphisme fonctionne avec cette méthode -- ce n'est pas automatique en C++), pour cela vous devez ajouter le mot-clef <strong>virtual</strong> dans la déclaration de la méthode :</p>
+<p>Comme vous pouvez le remarquer, la méthode surchargée est suivie du mot-clef <strong>override</strong>, cela indique au compilateur qu'il s'agit d'une redéfinition d'une méthode déjà définie plus haut dans la hiérarchie de classe (ici dans la classe Graphe). Il faut aussi indiquer dans la classe Graphe, que la méthode surchargée est polymorphe (le polymorphisme fonctionne avec cette méthode -- ce n'est pas automatique en C++), pour cela vous devez ajouter le mot-clef <strong>virtual</strong> dans la déclaration de la méthode :</p>
 <pre><code>    // Graphe.h
     virtual bool charger(std::string fichier);
 </code></pre>
 <p>NB : Vous pourrez ajouter d'autres propriétés plus tard, lorsque vous n'utiliserez plus libVueGraphe.a, c'est à dire à partir de l'étape 3.</p>
-<p>Déclarer la classe GrapheValue dans include et implémentez là dans src.</p>
-<p>Maintenant, vous êtes normalement prêts à compiler et si tout se passe bien à exécuter votre programme <span>&#129310;</span></p>
+<p>Déclarez la classe GrapheValue dans include et implémentez-là dans src.</p>
+<p>Maintenant, vous êtes normalement prêts à compiler et si tout se passe bien, à exécuter votre programme <span>&#129310;</span></p>
 <p>Si vous voyez votre graphe s'afficher, vous pouvez passer à l'étape suivante !</p></div>
             </div>
         </div>

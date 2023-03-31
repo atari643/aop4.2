@@ -115,20 +115,20 @@
 <h1 id="charger-et-manipuler-un-graphe">Charger et manipuler un graphe</h1>
 <p>Avant toute chose, nous vous recommandons vivement d'utiliser un dépot gitLab pour versionner votre code source tout au long de la semaine.</p>
 <h2 id="organiser-son-code-source">Organiser son code source</h2>
-<p>Les différentes archives disponibles sur la page Moodle du cours,  nous avons préparer une certaine architecture de code. Merci de bien la respecter tout au long de la semaine :</p>
+<p>Les différentes archives disponibles sur la page Moodle du cours contiennent une certaine architecture de code. Merci de bien la respecter tout au long de la semaine :</p>
 <ul>
 <li>bin : contiendra l'exécutable une fois généré</li>
 <li>obj : contiendra les fichiers générés et utilisés lors de la compilation</li>
 <li>src : contiendra l'implémentation des classes (.cpp) et le fichier main (oui, tout comme en C, la déclaration et l'implémentation sont séparées)</li>
 <li>include : contiendra la déclaration des classes (fichier entête, .h)</li>
-<li>datasets : contiendra le (les) jeu(x) de données pour exécuter votre code</li>
+<li>datasets : contiendra le(s) jeu(x) de données pour exécuter votre code</li>
 <li>Makefile : c'est un fichier permettant de définir les règles de compilation permettant de construire l'exécutable. Nous n'aborderons pas cet aspect qui est assez compliqué en C++ et n'est pas l'objet de cette AOP.</li>
 </ul>
 <h2 id="declarer-et-implementer-sa-1ere-classe-en-c">Déclarer et implémenter sa 1ère classe en C++</h2>
-<p>Commencer par télécharger l'archive correspondant à cette <a href="https://moodle1.u-bordeaux.fr/course/view.php?id=12439">étape</a>.</p>
+<p>Commencez par télécharger l'archive correspondant à cette <a href="https://moodle1.u-bordeaux.fr/course/view.php?id=12439">étape</a>.</p>
 <p>Comme évoqué plus haut, en C++, la déclaration d'une classe est en général séparée de son implémentation.
-Le fichier entête (<em>header</em>) contiendra la déclaration de la classe, ses attributs, ses méthodes et leurs visibilité.
-Dans l'exemple si dessous, vous trouverez la déclaration d'une classe Foo dans un fichier Foo.h (par convention le fichier porte le nom de la classe, Majuscule incluse) :</p>
+Le fichier entête (<em>header</em>) contiendra la déclaration de la classe, ses attributs, ses méthodes et leur visibilité.
+Dans l'exemple ci-dessous, vous trouverez la déclaration d'une classe Foo dans un fichier Foo.h (par convention le fichier porte le nom de la classe, Majuscule incluse) :</p>
 <pre><code>#ifndef FOO_H   // &lt;--- garde, permet de ne pas déclarer la classe plusieurs fois lors d'inclusion multiples
 #define FOO_H   // on définit FOO_H afin de ne plus redéfinir la classe
 
@@ -174,7 +174,7 @@ void Foo::methodePrivee(){
 }
 </code></pre>
 <h2 id="implementer-les-classes-sommet-et-arete">Implémenter les classes Sommet et Arete</h2>
-<p>Nous avons choisi d'utiliser d'une modélisation plus que rudimentaire des sommets et arêtes du graphe. Dans ce projet, un sommet sera modéliser par un identifiant (de même pour une arête). Comme il est parfois utile de pouvoir manipuler un sommet (ou une arête) invalide nous utiliserons une valeur d'identifiant spéciale pour cela (typiquement -1).</p>
+<p>Nous avons choisi d'utiliser une modélisation plus que rudimentaire des sommets et arêtes du graphe. Dans ce projet, un sommet sera modélisé par un identifiant (de même pour une arête). Comme il est parfois utile de pouvoir manipuler un sommet (ou une arête) invalide, nous utiliserons une valeur d'identifiant spéciale pour cela (typiquement -1).</p>
 <h3 id="la-classe-sommet">La classe Sommet</h3>
 <p>Ajoutez dans le répertoire <strong>include</strong> un fichier Sommet.h contenant les méthodes suivantes :</p>
 <ul>
@@ -184,43 +184,43 @@ void Foo::methodePrivee(){
 </ul>
 <p>Comme on souhaite pouvoir attribuer un identifiant différent à chaque sommet (sauf si on fait une copie), il faut ajouter à l'attribut stockant l'identifiant du sommet, un attribut statique (mot-clef <em>static</em>, par exemple : static int attribut_statique) contenant la dernière valeur d'identifiant donné à un sommet.</p>
 <p>Ajoutez un fichier dans le répertoire <strong>src</strong> un fichier Sommet.cpp contenant l'implémentation de la classe Sommet.</p>
-<p>La syntaxe permettant d'initialiser un attribut static est la suivante (ajouter une ligne équivalente dans votre fichier SOmmet.cpp) :</p>
+<p>La syntaxe permettant d'initialiser un attribut <em>static</em> est la suivante (ajouter une ligne équivalente dans votre fichier Sommet.cpp) :</p>
 <pre><code>    int Sommet::attribut_static = 0; // si vous avez déclaré un attibut static 
                                      // de type int dans la classe Sommet
 </code></pre>
 <p>Si vous exécutiez l'instruction suivante :</p>
 <pre><code>    Sommet s;
 </code></pre>
-<p>Alors le compilateur se plainderait car dès lors qu'on définit un constructeur, le constructeur par défaut n'est plus fourni automatiquement. Pour pallier au problème, vous pouvez ajouter un constructeur sans paramètre à la classe Sommet (un sommet par défaut doit alors être valide). Vous pouvez aussi donné une valeur par défaut au paramètre du constructeur que vous avez déclarer :</p>
+<p>Alors le compilateur se plaindrait car dès lors que l'on définit un constructeur, le constructeur par défaut n'est plus fourni automatiquement. Pour pallier ce problème, vous pouvez ajouter un constructeur sans paramètre à la classe Sommet (un sommet par défaut doit alors être valide). Vous pouvez aussi donner une valeur par défaut au paramètre du constructeur que vous avez déclaré :</p>
 <pre><code>    Sommet(bool valide = true);
 </code></pre>
-<p>En déclarant votre constructeur comme cela (il en faut pas changer l'implémentation), si un sommet est instancié sans paramètre, c'est bien lui qui sera appelé.</p>
+<p>En déclarant votre constructeur comme cela (il ne faut pas changer l'implémentation), si un sommet est instancié sans paramètre, c'est bien lui qui sera appelé.</p>
 <pre><code>    Sommet n ; // appel maintenant le constructeur de Sommet 
                // en utilisant la valeur par défaut, le sommet sera valide
     Sommet nInvalide (false); // va instancier un sommet invalide
 </code></pre>
 <h3 id="compiler-le-programme">Compiler le programme</h3>
-<p>Afin de compiler votre code, vous pouvez commenter le contenu de la fonction principale (main) contenue dans le fichier main.cpp ainsi que l'inclusion des fichier Graphe.h et Arete.h. Vous ne pourrez pas l'éxecuter mais cela permettra tout de même de relever d'éventuelles erreurs de syntaxe.</p>
+<p>Afin de compiler votre code, vous pouvez commenter le contenu de la fonction principale (main) contenue dans le fichier main.cpp ainsi que l'inclusion des fichier Graphe.h et Arete.h. Vous ne pourrez pas l'exécuter mais cela permettra tout de même de relever d'éventuelles erreurs de syntaxe.</p>
 <p>Pour le compiler, ouvrez un terminal dans le répertoire racine du projet (celui contenant le fichier Makefile) et taper la commande :</p>
 <pre><code>    make
 </code></pre>
-<p>make est un outils permettant de compiler un programme (en C ou C++ par exemple) en suivant les règles décrites dans un fichier Makefile. Il est <strong>important</strong> que vous respectiez bien l'arborescence de fichier demadé car le Makefile fourni lui est spécifique.</p>
-<p>Le problème maintenant est que certaines méthodes de la classe Sommet ne peuvent pas être utilisées sur un Sommeet constant, par exemple :</p>
+<p>make est un outil permettant de compiler un programme (en C ou C++ par exemple) en suivant les règles décrites dans un fichier Makefile. Il est <strong>important</strong> que vous respectiez bien l'arborescence de fichier demandé car le Makefile fourni lui est spécifique.</p>
+<p>Le problème maintenant est que certaines méthodes de la classe Sommet ne peuvent pas être utilisées sur un Sommet constant, par exemple :</p>
 <pre><code>    const Sommet n;
 </code></pre>
-<p>En effet, n étant constant, il faut pouvoir garantir qu'il ne soit pas modifié par un appel de méthode. Or la méthode id() (mais aussi valide()) ne garantisse pas qu'elle ne modifie pas l'objet courant. Etant donné que ces méthodes ne devraient pas modifier l'objet courant (demander son identifiant à un Sommet ne devrait pasm odifier le Sommet), nous allons déclarer qu'elles ne le font pas en ajoutant le mot-clef <em>const</em></p>
+<p>En effet, n étant constant, il faut pouvoir garantir qu'il ne soit pas modifié par un appel de méthode. Or la méthode id() (mais aussi valide()) ne garantissent pas qu'elles ne modifient pas l'objet courant. Etant donné que ces méthodes ne devraient pas modifier l'objet courant (demander son identifiant à un Sommet ne devrait pas modifier le Sommet), nous allons déclarer qu'elles ne le font pas en ajoutant le mot-clef <em>const</em></p>
 <pre><code>    int id() const;
     bool valide() const;
 </code></pre>
-<p>Ajouter ausssi ce mot-clef à la fin de l'entête de la fonction dans le fichier Sommet.cpp</p>
-<p>Ces méthodes sont dites constantes, elles garantissent qu'elles ne modifient pas l'état interne de l'objet et peuvent maintenant être appelées par des Sommet constant.</p>
+<p>Ajouter aussi ce mot-clef à la fin de l'entête de la fonction dans le fichier Sommet.cpp</p>
+<p>Ces méthodes sont dites constantes, elles garantissent qu'elles ne modifient pas l'état interne de l'objet et peuvent maintenant être appelées par des Sommets constants.</p>
 <p>Compilez à nouveau votre code et s'il n'y a pas d'erreur, passez à la suite.</p>
 <h2 id="classe-arete">Classe Arete</h2>
-<p>Inspirez vous de ce que vous avez fait pour Sommet et déclarez (dans le répertoire include) puis implémentez (dans le répertoire src) la classe Arete qui aura les mêmes caratéristiques.</p>
+<p>Inspirez-vous de ce que vous avez fait pour Sommet et déclarez (dans le répertoire include) puis implémentez (dans le répertoire src) la classe Arete qui aura les mêmes caratéristiques.</p>
 <p>Compilez à nouveau et passez à la suite.</p>
 <h2 id="classe-graphe">Classe Graphe</h2>
-<p>Théoriquement, un graphe G est constitué d'un ensemble de sommets et d'un ensemble d'arêtes. Dans notre modélisation, c'est la classe graphe qui maintiendra à jour ses arêtes et sommets.</p>
-<p>Voici les méthodes que nous souhaitons pouvoir utilisées:</p>
+<p>Théoriquement, un graphe G est constitué d'un ensemble de sommets et d'un ensemble d'arêtes. Dans notre modélisation, c'est la classe Graphe qui maintiendra à jour ses arêtes et ses sommets.</p>
+<p>Voici les méthodes que nous souhaitons pouvoir utiliser:</p>
 <ul>
 <li>Sommet ajouterSommet();</li>
 <li>Arete ajouterArete(const Sommet &amp; n1, const Sommet&amp; n2);</li>
@@ -240,11 +240,11 @@ void Foo::methodePrivee(){
 <li>int nbSommets() const;</li>
 <li>int nbAretes() const;</li>
 </ul>
-<p>NB : Il ne sera pasnécessaire d'ajouter de constructeur par défaut car celui qui est founir implicitement sera bien suffisant. Si vous souhaitez tout de même indiquer explicitement que vous souhaitez avec un constructeur avec un comportement par défaut. Vous pourrez ajouter dans la déclaration (uniquement, il n'y a rien à ajouter dans l'implémentation) de la classe Graphe :</p>
+<p>NB : Il ne sera pas nécessaire d'ajouter de constructeur par défaut car celui qui est founi implicitement sera bien suffisant. Si vous souhaitez tout de même ajouter explicitement un constructeur avec un comportement par défaut, vous pourrez l'ajouter dans la déclaration de la classe Graphe uniquement (il n'y a rien à ajouter dans l'implémentation) :</p>
 <pre><code>    Graphe() = default;
 </code></pre>
-<p>Comme vous pouvez le voir, un bon nombre de méthodes de cette classe sont déclarées comme constante. C'est une bonne pratique ! Il faut déclarer comme constante toute méthode qui ne modifie pas l'objet.</p>
-<p>Vous pouvez aussi noter que les paramètres de certaines de ces méthodes sont des constantes (par exemple dans la méthode voisins) et que le nom du paramètre est précédé du caractère &amp;. C'est ce que l'on appelle un passage par référence, cela indique au compilateur que l'argument d'appel utilisé est passé en entrée-sortie (il peut donc être modifié par la fonction/méthode appelée). Ce passage de paramètre, qui n'existe pas en C, permet donc de ne pas copier l'objet (gain en performance) et comme nous l'avons déclaré ces références comme <em>const</em>, ces références ne pourront pas être modifiées. Cela ne change en rien la manière d'appeler l'une de ces fonctions, par exemple :</p>
+<p>Comme vous pouvez le voir, un bon nombre de méthodes de cette classe sont déclarées comme constantes. C'est une bonne pratique ! Il faut déclarer comme constante toute méthode qui ne modifie pas l'objet.</p>
+<p>Vous pouvez aussi noter que les paramètres de certaines de ces méthodes sont des constantes (par exemple dans la méthode voisins) et que le nom du paramètre est précédé du caractère &amp;. C'est ce que l'on appelle un passage par référence, cela indique au compilateur que l'argument d'appel utilisé est passé en entrée-sortie (il peut donc être modifié par la fonction/méthode appelée). Ce passage de paramètre, qui n'existe pas en C, permet donc de ne pas copier l'objet (gain en performance). Comme nous avons déclaré ces références comme <em>const</em>, celles-ci ne pourront pas être modifiées. Cela ne change en rien la manière d'appeler l'une de ces fonctions, par exemple :</p>
 <pre><code>    Graphe g;
     ...
     Sommet n = g.ajouterSommet();
@@ -252,10 +252,10 @@ void Foo::methodePrivee(){
     int d = g.degre(n);
 
 </code></pre>
-<p>Enfin, Vous pouvez remarquer  l'utilisation d'un type que vous ne connaissez pas : <strong>set</strong>. Les set en C++ font partie de la bibliothèque standard (std). Ils fonctionnent de manière similaire au TreeSet en java, en effet pour pouvoir sotcker des objets dans un set, il faut pouvoir les comparer.  </p>
-<p>NB : Comme nous n'avons pas ouvert l'espace de nom std dans le fichier (c'est une mauvaise pratique d'ouvrir les espaces de nom dans les fichiers entête car en les incluant dans un autre fichier,  on y ouvrirait aussi l'espace de nom)</p>
-<h3 id="ajout-des-operateurs-de-comparaison-dans-sommet-et-arete">Ajout des operateurs de comparaison dans Sommet et Arete</h3>
-<p>Vous allez donc ajouter un operateur de comparaison dans les classes Sommet et Arete. Un opérateur de comparaison en C++ suit toujours la même syntaxe. Pour une classe Foo par exemple :</p>
+<p>Enfin, Vous pouvez remarquer  l'utilisation d'un type que vous ne connaissez pas : <strong>set</strong>. Les sets en C++ font partie de la bibliothèque standard (std). Ils fonctionnent de manière similaire au TreeSet en java. En effet, pour pouvoir stocker des objets dans un set, il faut pouvoir les comparer. </p>
+<p>NB : Comme nous n'avons pas ouvert l'espace de nom std dans le fichier (c'est une mauvaise pratique d'ouvrir les espaces de nom dans les fichiers d'entête car en les incluant dans un autre fichier, on y ouvrirait aussi l'espace de nom)</p>
+<h3 id="ajout-des-operateurs-de-comparaison-dans-sommet-et-arete">Ajout des opérateurs de comparaison dans Sommet et Arete</h3>
+<p>Vous allez donc ajouter un opérateur de comparaison dans les classes Sommet et Arete. Un opérateur de comparaison en C++ suit toujours la même syntaxe. Pour une classe Foo par exemple :</p>
 <pre><code>    bool operator&lt;(const Foo &amp; autre) const;
 </code></pre>
 <pre><code>    bool Foo::operator&lt;(const Foo &amp; autre) const {
@@ -274,25 +274,25 @@ void Foo::methodePrivee(){
     }
 
 </code></pre>
-<p>NB : il est possible de (re)définir d'autres operateurs comme +, <em>, /, +=,</em>etc.* comme nous le verrons plus tard</p>
-<p>Ajoutez cet operateur de comparaison dans les classes Sommet et Arete. Assurez vous que votre code compile toujours.</p>
+<p>NB : il est possible de (re)définir d'autres opérateurs comme +, -, /, +=,<em>etc.</em> comme nous le verrons plus tard.</p>
+<p>Ajoutez cet opérateur de comparaison dans les classes Sommet et Arete. Assurez-vous que votre code compile toujours.</p>
 <h3 id="choix-de-la-structure-de-donnees-de-la-classe-graphe">Choix de la structure de données de la classe Graphe</h3>
-<p>Nous souhaitons que chacune de ces méthodes puissent s'exécuuter dans un temps raisonnable. Il faut donc choisir les structures de données appripriées, quitte à stocker plusieurs fois la même informations.</p>
+<p>Nous souhaitons que chacune de ces méthodes puissent s'exécuter dans un temps raisonnable. Il faut donc choisir les structures de données appropriées, quitte à stocker plusieurs fois la même information.</p>
 <p>Nous proposons donc de stocker l'ensemble des Sommet et Arete du graphe dans un ensemble (<strong>set</strong>) puisque cela est maintenant possible. Cela permettra de retourner rapidement l'ensemble des Sommet (ou Arete) d'un graphe.</p>
 <pre><code>    std::set&lt;Arete&gt; aretes;
     std::set&lt;Sommet&gt; sommets;
 </code></pre>
-<p>Le graphe devra aussi maintenir une correspondance entre ses Arete et les Sommet extrémités de celles-ci. Pour cela nous allons utiliser le type <strong>map</strong> (aussi dans std) qui fonctionne de façon similaire aux TreeMap en java. Cette <em>map</em> mettra en correspondance, une Arete (clef) avec une paire de Sommet (ses extrémités). En C++, il existe un type <strong>pair</strong> qui permet de stocker une paire de valeur (à la différence de java).</p>
+<p>Le graphe devra aussi maintenir une correspondance entre ses Arete et les Sommet aux extrémités de celles-ci. Pour cela nous allons utiliser le type <strong>map</strong> (aussi dans std) qui fonctionne de façon similaire aux TreeMap en java. Cette <em>map</em> mettra en correspondance une Arete (clef) avec une paire de Sommet (ses extrémités). En C++, il existe un type <strong>pair</strong> qui permet de stocker une paire de valeur (à la différence de java).</p>
 <pre><code>    std::map&lt;Arete, std::pair&lt;Sommet, Sommet&gt; &gt; aretes2Extremites;
 </code></pre>
 <p>Le graphe devra aussi maintenir une correspondance entre chaque Sommet et les Arete qui lui sont incidentes. Nous utiliserons ici aussi une <em>map</em> qui associera à chaque Sommet, l'ensemble des Arete incidentes :</p>
 <pre><code>    std::map&lt; Sommet, std::set&lt;Arete&gt; &gt; sommets2Incidentes;
 </code></pre>
-<p>Déclarez et implémentez la classe Graphe. Nous vous conseillons de finir par les méthodes de suppression qui sont un peu plus complexes (en particulier la suppression de Sommet puisqu'il faut mettre à jour correctement toute la structure de données) que les autres.</p>
+<p>Déclarez et implémentez la classe Graphe. Nous vous conseillons de finir par les méthodes de suppression qui sont un peu plus complexes que les autres (en particulier la suppression de Sommet puisqu'il faut mettre à jour correctement toute la structure de données).</p>
 <p>Compilez !</p>
 <h3 id="chargement-du-graphe">Chargement du graphe</h3>
-<p>La manipulation de fichiers en C++ est relativement compliquée (bien plus qu'en python ou java par exemple). Nous vous fournissons donc le code permettant de charger un graphe. Vous trouverez donc un fichier utils.h et utils.cpp contenant une fonction utilitaire pour découper une chaine de caractères (std::string) en tableau de chaines de caractères (std::vector&lt;std::string>, un "équivalent" des ArrayList en java).</p>
-<p>Ajouter dans la classe Graphe, une méthode publique charger comme suit:</p>
+<p>La manipulation de fichiers en C++ est relativement compliquée (bien plus qu'en python ou java par exemple). Nous vous fournissons donc le code permettant de charger un graphe. Vous trouverez donc un fichier utils.h et utils.cpp contenant une fonction utilitaire pour découper une chaîne de caractères (std::string) en tableau de chaînes de caractères (std::vector<std::string>, un "équivalent" des ArrayList en java).</p>
+<p>Ajoutez une méthode publique <em>charger</em> dans la classe Graphe, comme suit:</p>
 <pre><code>    bool Graphe::charger(std::string fichier)
     {
         map&lt;int, Sommet&gt; idSommet;
@@ -342,7 +342,7 @@ void Foo::methodePrivee(){
         return true;
     }
 </code></pre>
-<p>Cette méthode correspond au format de fichier en entrée que vous pourrez trouver dans datasets.</p>
+<p>Cette méthode correspond au format de fichier en entrée que vous pourrez trouver dans <em>./datasets</em>.</p>
 <p>Décommentez les lignes du main afin que le code s'exécute maintenant totalement. Compilez et exécutez !</p>
 <p>Pour exécuter votre code, tapez la commande suivante dans un terminal (à la racine du projet):</p>
 <pre><code>    ./bin/demo datasets/hollywood.csv
