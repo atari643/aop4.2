@@ -83,8 +83,24 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#implementer-la-partie-graphiqhe" class="nav-link">Implémenter la partie graphiqhe</a>
+            <li class="nav-item" data-level="1"><a href="#implementer-la-partie-graphique" class="nav-link">Implémenter la partie graphique</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#lecture-et-comprehension-du-code-fourni" class="nav-link">Lecture et compréhension du code fourni</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#implementation-des-methodes-publiques" class="nav-link">Implémentation des méthodes publiques</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#implementation-de-la-methode-dessiner" class="nav-link">Implémentation de la méthode dessiner</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#traiter-et-gerer-les-evenements" class="nav-link">Traiter et gérer les événements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -92,8 +108,45 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="implementer-la-partie-graphiqhe">Implémenter la partie graphiqhe</h1>
-<p>To be announced</p></div>
+<h1 id="implementer-la-partie-graphique">Implémenter la partie graphique</h1>
+<p>Dans cette étape, vous devez implémenter la classe <strong>Appli</strong> dont la déclaration vous a déjà été fournie (dans le répertoire include).</p>
+<h2 id="lecture-et-comprehension-du-code-fourni">Lecture et compréhension du code fourni</h2>
+<p>Commencer par lire la déclaration de la classe Appli dans le fichier Appli.h, vous y trouverez les attributs ainsi que les méthodes que vous devrez implémenter.</p>
+<p>Vous pourrez tout d'abord remarquer l'inclusion d'une bibliothèque appelée SFML (Simple and Fast Multimedia Library). Contrairement à des bibliothèques de plus complètes (et plus complexes) comme Qt qui fournit tous les compposants graphiques (bouton, slider, etc.) pour la réalisation d'une application, la SFML permet simplement d'afficher des éléments et de jouer des musiques. Pour plus de détails rendez vous sur la page web de la <a href="https://www.sfml-dev.org/index-fr.php">SFML</a>). </p>
+<p>Pour chaque attribut dont les types sont définis dans la SFML, consultez la documentation (en français) de la bibliothèque. Identifiez le rôle qu'auront ces différents attributs.</p>
+<h2 id="implementation-des-methodes-publiques">Implémentation des méthodes publiques</h2>
+<p>Commencez par implémenter les méthodes public de la classe, à savoir :</p>
+<ul>
+<li>le constructeur Appli((unsigned int largeur, unsigned int hauteur) : le construteur devra initialiser les attributs de la classe et notamment le <em>RenderWindow</em> qui permet l'affichage de la scene graphique.</li>
+<li>setGraphe(GrapheValue &amp;g) : qui permet d'initialiser l'attribut m_g (c'est ici que ce trouve le 1er pointeur du projet)</li>
+<li>running() const : permet de savoir si la fenetre (RenderWindow) est toujours ouvert.</li>
+<li>exec() : si la fenetre est toujours ouverte, va appeler successivement traiter_evenements et dessiner</li>
+</ul>
+<h2 id="implementation-de-la-methode-dessiner">Implémentation de la méthode dessiner</h2>
+<p>Implémentez la méthode dessiner. Cette méthode devra dessiner chacune des arêtes puis chacun des sommets du graphe (l'ordre est important si vous ne voulez pas dessiner les arêtes par dessus les sommets). </p>
+<p>Vous pouvez pour vous aider consulter un des <a href="https://www.sfml-dev.org/tutorials/2.0/graphics-shape-fr.php">tutoriels</a> de la SFML.</p>
+<h2 id="traiter-et-gerer-les-evenements">Traiter et gérer les événements</h2>
+<p>Le principe de base dans la gestion des événements en SFML est que ces événement sont stockées dans une poule d'événement jusqu'à ce qu'ils aient été traités. Cela se fait en utisant la méthode pollEvent de la classe RenderWindow qui permet de réccupérer un à un ces événements.</p>
+<p>Par exemple :</p>
+<pre><code>    sf::Event e;
+    while (m_fenetre.pollEvent(e)) // a chaque tour de boucle e est l'événement courant
+    {   
+        // traitement de l'événement e
+    }
+</code></pre>
+<p>Pour traiter l'événement, il faut commencer par en regarder le "type":</p>
+<pre><code>    switch(e.type){
+        case ... : 
+            ...
+            break;
+         case ... : 
+            ...
+            break;
+    }
+</code></pre>
+<p>La SFML propose plusieurs "type" d'événements que vous pourrez trouver <a href="https://www.sfml-dev.org/documentation/2.5.1-fr/classsf_1_1Event.php">ici</a> dans la documentation de la classe.</p>
+<p>Si l'événement est d'un certain type, vous pouvez alors demander plus de précision. Par exemple, si le type de l'événement est sf::KeyPressed alors il est possible de récupérer la touche qui a été pressée. </p>
+<p>Vous pouvez dans un premier temps ne pas gérer l'affichage des <em>labels</em> (étiquettes) ni de l'interpolation des couleurs. Ces fonctionnalités ne sont pas du tout obligatoires (en particulier le texte qui peut être complexe à gérer correctement).</p></div>
             </div>
         </div>
 

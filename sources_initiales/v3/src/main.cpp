@@ -25,12 +25,10 @@ int main(int argc, char *argv[])
         cout << "Erreur de chargement de fichier" << endl;
         return 1;
     }
-    else cout << g.nbSommets() << endl;
 
     Appli app {LARGEUR, HAUTEUR};
     app.setGraphe(g);
 
-    // pour ne pas fermer la fenêtre après le dessin
     while(app.running())
         app.exec();
 

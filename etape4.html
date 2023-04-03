@@ -83,8 +83,28 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#mettre-en-place-un-patter-observer" class="nav-link">Mettre en place un patter observer</a>
+            <li class="nav-item" data-level="1"><a href="#mettre-en-place-un-pattern-observer" class="nav-link">Mettre en place un pattern observer</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#implementation-de-la-classe-grapheobserve" class="nav-link">Implémentation de la classe GrapheObserve</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#rendre-le-graphevalue-observe" class="nav-link">Rendre le GrapheValue observé</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#la-classe-observateurgraphe" class="nav-link">La classe ObservateurGraphe</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#faire-de-lappli-un-observateur" class="nav-link">Faire de l'Appli un observateur</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#reusinage-de-la-classe-appli" class="nav-link">Réusinage de la classe Appli</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -92,8 +112,103 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="mettre-en-place-un-patter-observer">Mettre en place un patter observer</h1>
-<p>To be announced</p></div>
+<h1 id="mettre-en-place-un-pattern-observer">Mettre en place un pattern observer</h1>
+<p>Dans cette partie, nous allons mettre en place un patron de conception appelé <em>pattern observer</em>. L'idée de ce patron est qu'il y a un objet observé et un objet observateur. Dès lors que l'objet observé est modifié alors il en notifie son (ses) observateurs via un appel de méthode. L'observateur réalise ensuite le traitement approprié à la modification.</p>
+<p>L'idée ici est que le graphe sera observé et que la vue (Appli) sera l'observateur, dès que le graphe sera modifié, la vue mettra à jour les informations correspondantes.</p>
+<h2 id="implementation-de-la-classe-grapheobserve">Implémentation de la classe GrapheObserve</h2>
+<p>Voici la déclaration de la classe GrapheObserve : </p>
+<pre><code>class GrapheObserve
+{
+protected:
+    std::set&lt;ObservateurGraphe *&gt; m_observateurs;
+
+    virtual void notifierAjout(const Sommet &amp;n);
+    virtual void notifierAjout(const Arete &amp;e);
+
+    virtual void notifierSuppression(const Arete &amp;e);
+    virtual void notifierSuppression(const Sommet &amp;n);
+
+    virtual void notifierProprieteChangee(const Sommet &amp;n);
+    virtual void notifierProprieteChangee(const Arete &amp;e);
+
+public:
+    GrapheObserve() = default;
+    virtual ~GrapheObserve() = default;
+
+    virtual void attacher(ObservateurGraphe *observateur);
+    virtual void detacher(ObservateurGraphe *observateur);
+}
+
+</code></pre>
+<p>On peut remarquer plusieurs choses dans cette déclaration :</p>
+<ul>
+<li>le mot-clef <strong>virtual</strong> : vous avez déjà utilisé le polymorphisme dans les langages que vous avez manipulés. En C++, une méthode n'est par défaut pas polymorphe (c'est-à-dire que le polymorphisme ne s'applique pas car ça n'est pas toujours souhaité). Si on souhaite qu'une méthode soit polymorphe, il faut l'indiquer au compilateur, c'est à ça que sert le mot-clef <strong>virtual</strong>. On dit alors que la méthode est <strong>virtuelle</strong></li>
+<li>le mot-clef <strong>protected</strong> : indique que les attributs et méthodes déclarés dans ce bloc ne sont accessible que depuis la classe ou une classe qui en dérive (comme nous avons prévu de dériver cette classe, c'est ici important).</li>
+<li>la méthode ~GrapheObserve() : c'est le destructeur de la classe, c'est-à-dire la méthode appelée lorsqu'un objet est désalloué (si nous avions fait de l'allocation dynamique lors de l'instanciation de l'objet, c'est ici que nous devrions libérer l'espace ainsi alloué). Ici, il est marqué virtuel car il faut que le destructeur soit polymorphe. On peut aussi remarquer qu'il est suivi de <strong>= default</strong>, cela permet de ne pas implémenter de destructeur et d'utiliser celui fourni par défaut (comme nous n'allons pas faire d'allocation dynamique, celui-ci convient bien).</li>
+<li>un attribut sui permet de stocker des ObservateurGraphe : il est possible qu'un objet observé le soit par plusieurs observateurs. A chaque modification de l'objet observé, il faut tous les en notifier. </li>
+<li>Deux méthodes permettent d'ajouter ou de retirer un observateur de cet attribut.</li>
+</ul>
+<p>Déclarez et implémentez la classe GrapheObserve.</p>
+<p>Pour cela, vous pouvez considerer que la classe ObservateurGraphe fournira les méthodes suivantes :</p>
+<pre><code>    void traiterAjout(const Sommet &amp;n) ;
+    void traiterAjout(const Arete &amp;e) ;
+
+    void traiterSuppression(const Arete &amp;e) ;
+    void traiterSuppression(const Sommet &amp;n) ;
+
+    void traiterProprieteChangee(const Sommet &amp;n) ;
+    void traiterProprieteChangee(const Arete &amp;e) ;
+</code></pre>
+<h2 id="rendre-le-graphevalue-observe">Rendre le GrapheValue observé</h2>
+<p>Nous allons maintenant faire en sorte que la classe GrapheValue hérite (aussi) de la classe GrapheObserve. En effet, en C++ les héritages multiples (le fait qu'une classe peut hériter de plusieurs autres) est autorisé. Pour cela, il suffit de l'ajouter dans la déclaration de la classe GrapheValue :</p>
+<pre><code>    class GrapheValue : public Graphe, public GrapheObserve
+</code></pre>
+<p>Dans notre cas, cela ne pose aucun problème. Il faut toutefois savoir que si ce type d'héritage n'est pas autorisé dans d'autres langages, c'est parce que cela peut poser des problèmes. C'est en particulier le cas lorsque l'on a un héritage en "diamant", c'est à dire lorsque B et C hérite d'une même classe A et que la classe D hérite de B et de C : lorsqu'on instancie un D, un B et un C sont instanciés aussi (puisque D en hérite) et le problème que B et C vont instancier un A (et donc pour un objet D, on instancie 2 objets A). Ce problème est connu et il existe évidemment un moyen de le contourner mais cela dépasse les limites de cette AOP.</p>
+<p>Modifiez l'implémentation de la classe GrapheValue afin qu'a chaque modification (ajout/suppression, modification d'une propriété), il en notifie ses observateurs.</p>
+<h2 id="la-classe-observateurgraphe">La classe ObservateurGraphe</h2>
+<p>Déclarer une classe ObservateurGraphe ayant les méthodes citées ci-dessus et ajouter y un destructeur virtuel.</p>
+<p>Implémentez la classe ObservateurGraphe... A priori ce n'est pas encore possible, en effet, à ce niveau d'abstraction, il n'est pas possible de définir le traitement à apporter si un GrapheObserve le notifie d'une modification. </p>
+<p>En java, la classe ObservateurGraphe serait donc une classe abstraite. Toutefois ce mot-clef n'existe pas en C++. Pour rendre une classe abstraite (donc pas instanciable), une des méthodes (au moins) doit être <strong>virtuelle pure</strong>. Pour indiquer qu'une méthode est virtuelle pure, il faut qu'elle soit virtuelle, précédée de virtual, et suivi de <strong> = 0 </strong>.</p>
+<p>Indiquez que toutes les méthodes de la classe ObservateurGraphe sont virtuelle pure à l'exception du destructeur.</p>
+<h2 id="faire-de-lappli-un-observateur">Faire de l'Appli un observateur</h2>
+<p>Commencez par indiquer que la classe Appli dérive de la classe ObservateurGraphe.</p>
+<p>Si vous essayez de compiler, le compilateur doit refuser car vous n'avez pas encore implémenté les méthodes virtuelle pure de la classe ObservateurGraphe et donc pour le momment votre classe Appli est elle aussi abstraite.</p>
+<p>Ajoutez à la déclaration classe Appli, les méthodes héritées :</p>
+<pre><code>    void traiterAjout(const Sommet &amp;n) ;
+    void traiterAjout(const Arete &amp;e) ;
+
+    void traiterSuppression(const Arete &amp;e) ;
+    void traiterSuppression(const Sommet &amp;n) ;
+
+    void traiterProprieteChangee(const Sommet &amp;n) ;
+    void traiterProprieteChangee(const Arete &amp;e) ;
+</code></pre>
+<p>sans oublier d'ajouter le mot-clef <strong>override</strong> à la fin de chacune de ces déclarations pour indiquer qu'il s'agit de redéfinitions.</p>
+<p>Implémenter ces méthodes dans une version "naive" qui consite à systématiquement demander le redessin de l'application (méthode dessiner). </p>
+<p>Compilez et exécutez. Si tout se passe bien, passez à la suite.</p>
+<h2 id="reusinage-de-la-classe-appli">Réusinage de la classe Appli</h2>
+<p>Pour le moment, à chaque fois que le GrapheValue observé est modifié, la fenetre est mise à jour ce qui à terme sera trop couteux. En effet, comme vous avez pu le voir dans la demo v5, l'algorithme de dessin que vous implémenterez à l'étape suivante déplace les sommets un a un et rafraichir l'affichage à chaque déplacement pourrait en ralentir l'exécution.</p>
+<p>Nous allons donc réusiner le code de cette classe. Pour le moment, la classe n'utilise d'un sf::CircleShape pour dessiner tous les noeuds, nous allons maintenant vouloir un CircleShape par sommet. Pour cela, remplacer l'attribut m_sommet par :  </p>
+<pre><code>    std::map&lt;Sommet, sf::CircleShape&gt; m_sommets;
+</code></pre>
+<p>Faites de même pour l'attibut m_etiquette.</p>
+<p>Enfin, nous allons aussi stocker les informations nécesaires au dessin d'un segment pour chaque arête c'est-à-dire 2 sf::Vertex :</p>
+<pre><code>    std::map&lt;Arete, std::pair&lt;sf::Vertex, sf::Vertex&gt; &gt; m_aretes; m_aretes;
+</code></pre>
+<p>Déclarez et implémentez maintenant les méthodes privées suivantes : </p>
+<pre><code>    void creerFormeSommet(const Sommet &amp;n);
+    void creerFormeArete(Arete e);    
+    void calculerFormesGeometriques();
+</code></pre>
+<p>Qui vont respectivement permettre de créer et de stocker les objetcs graphiques d'un sommet donné, d'une arête donnée et de l'ensemble des sommets et arêtes..</p>
+<p>Modifiez la méthode dessiner, on considérera dans cette méthde que tous les objets graphiques sont à jour et donc qu'il suffit de les dessiner.</p>
+<p>Enfin, réusinez le code des méthodes héritées de ObservateurGraphe afin qu'elles mettent à jour les objets graphiques (en fonction de la notification reçue). Par exemple, si un sommet est supprimé du graphe alors il doit aussi être supprimé de la <em>map</em> m_sommets.</p>
+<p>Modifier le code de la fonction main du fichier main.cpp et ajouter l'instruction suivante : </p>
+<pre><code>    g.attacher(&amp;app);
+</code></pre>
+<p>NB : ici l'opérateur &amp; est celui qui permet d'obtenir l'adresse de app, c'est-à-dire une <strong> Appli * </strong> (et par conséquent un <strong> ObservateurGraphe * </strong>)</p>
+<p>Compilez et exécutez <span>&#129310;</span></p>
+<p>Si vous voyez votre graphe s'afficher, vous pouvez passer à l'étape suivante !</p></div>
             </div>
         </div>
 
