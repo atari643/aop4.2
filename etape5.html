@@ -1,118 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+      <script>
+	// Hack for scrolling window when linking to anchor tag with fixed nav header
+        var shiftWindow = function() { scrollBy(0, -75) };
+        window.addEventListener("hashchange", shiftWindow);
+        function load() { if (window.location.hash) shiftWindow(); }
+      </script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
         
-        <link rel="shortcut icon" href="img/favicon.ico">
+        <link rel="shortcut icon" href="./img/favicon.ico">
         <title>Etape 5 - AOP 4.2 Programmer en C++ sans pointeur (ou presque)</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/font-awesome.min.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/purebasic.min.css">
-        <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-        <script src="js/jquery-1.10.2.min.js" defer></script>
-        <script src="js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/http.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="js/base.js"></script> 
     </head>
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">AOP 4.2 Programmer en C++ sans pointeur (ou presque)</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <body class="">
 
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href="index.html" class="nav-link">Descriptif</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="etape1.html" class="nav-link">Etape 1</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="etape2.html" class="nav-link">Etape 2</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="etape3.html" class="nav-link">Etape 3</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="etape4.html" class="nav-link">Etape 4</a>
-                            </li>
-                            <li class="navitem active">
-                                <a href="etape5.html" class="nav-link">Etape 5</a>
-                            </li>
-                        </ul>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+	<div class="container">
+	<a class="navbar-brand" href="index.html">AOP 4.2 Programmer en C++ sans pointeur (ou presque)</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+	</button>
 
-                    <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a rel="prev" href="etape4.html" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" class="nav-link disabled">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+	<div class="collapse navbar-collapse">
+          <!-- Main navigation -->
+          <nav class="nav">
+            <ul class="navbar-nav">
+              <li >
+                <a class="nav-link" href="index.html">Descriptif</a>
+              </li>
+              <li >
+                <a class="nav-link" href="etape1.html">Etape 1</a>
+              </li>
+              <li >
+                <a class="nav-link" href="etape2.html">Etape 2</a>
+              </li>
+              <li >
+                <a class="nav-link" href="etape3.html">Etape 3</a>
+              </li>
+              <li >
+                <a class="nav-link" href="etape4.html">Etape 4</a>
+              </li>
+              <li class="active">
+                <a class="nav-link" href="etape5.html">Etape 5</a>
+              </li>
+            </ul>
+          </nav>
 
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+          <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+          </ul>
+	</div>
+	</div>
+      </nav><div id="content" class="container">
+        
+      <div class="row">
+        <div class="col-md-9" role="main">
+
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    
+    <li class="breadcrumb-item active" aria-current="page">Etape 5</li>
+  </ol>
+</nav>
+
+
+<h1 id="dessiner-le-graphe">Dessiner le graphe</h1>
+<p>L'objectif de cette étape est d'implémenter un algorithme de dessin de graphe. Ces algorithmes permettent d'affecter des coordonnées aux sommets afin de construire une image lisible du graphe. Le type d'algorithme de dessin que vous allez implémenter s'appelle un algorithme par modèle de forces et simule un modèle physique où les sommets sont des objets et les arêtes des ressorts.</p>
+<p>Avant toute chose, pour que l'application se mette à jour automatiquement alors que le graphe se dessine petit à petit, nous allons exécuter l'application graphique et l'algorithme de dessin de grpahe dans des <em>threads</em> différents.</p>
+<h2 id="executer-la-mise-a-jour-de-lappli-dans-un-thread-separe">Exécuter la mise à jour de l'Appli dans un <em>thread</em> séparé</h2>
+<h3 id="lancer-des-theads">Lancer des <em>theads</em></h3>
+<p>Il existe plusieurs solutions en C++ pour lancer des <em>threads</em>. Nous allons utiliser la bibliothèque <em>pthread</em> (POSIX thread). Cette bibliothèque quoiqu'ancienne nous permettra de lancer simplement la mise à jour de la fenêtre d'afficahe (exec()).</p>
+<p>Voici un petit exemple de code permettant de lancer l'exécution d'une fonction dans un <em>thread</em> séparé :</p>
+<pre><code>    #include &lt;pthread.h&gt;
+
+    void * foo(void *param){  // le type de retour et du paramètre sont obligatoires
+        int * data = (int *) param; // on sait quel est le type réel
+        *data = 42;
+        // arrêt du thread
+        pthread_exit(0);
+    }
+
+
+    int main(nt argc, char *argv[]){
+        pthread_t th;
+        int i = 0;
+
+        cout &lt;&lt; &quot;Avant &quot; &lt;&lt; i &lt;&lt; endl;
+
+        // crée le thread avec 4 parametres : le pthread_t, les paramètres du thread
+        // (nous n'en parlerons pas), un pointeur vers une fonction (ici, foo) et le 
+        // paramètre de la fonction 
+        pthread_create(&amp;th, nullptr, foo, &amp;i); 
+
+        // indique qu'il faut attendre la fin du thread
+        pthread_join(th, nullptr);
+
+        cout &lt;&lt; &quot; 42 ? &quot; &lt;&lt; i &lt;&lt; endl;
+
+        return 0;
+    }
+</code></pre>
+<p>Ajoutez dans le fichier main.cpp la fonction suivante :</p>
+<pre><code>    void * miseAJourAppli(void * param);
+</code></pre>
+<p>qui reçoit un pointeur d'Appli sous la forme d'un <em>void *</em> et qui exécute la boucle de mise à jour de l'application.</p>
+<p>Modifiez la fonction main afin d'exécuter cette fonction dans un thread séparé.</p>
+<p>Compilez et exécutez.</p>
+<h3 id="rendre-lappli-thread-safe">Rendre l'Appli <em>thread safe</em></h3>
+<p>Même si vous avez pu compiler et exécutez votre code, il n'est pas pour autant adapté à une exécution en parallèle des plusieurs <em>threads</em>.</p>
+<p>En particulier, dans la classe Appli, nous utilisons des données pour dessiner les sommets dans la fenêtre. Or, nous allons écrire un algorithme qui va modifier ces mêmes objets graphiques. Nous allons donc faire en sorte d'interdire des accès concurrentiels  aux différentes <em>maps</em>. </p>
+<p>Pour cela, nous allons utiliser des mutex (MUTual EXclusion) qui permette de protéger les données en cours d'utilisation (ici, les données de l'Appli).</p>
+<p>Pour cela, commencer par inclure pthread dans la déclaration de la classe et ajouter l'attribut suivant : </p>
+<pre><code>    pthread_mutex_t m_mAJFormes;
+</code></pre>
+<p>Le principe de base du mutex est d'être "fermé" (<em>lock</em>) dès qu'on manipule des données qui sont modifiées par plusieurs threads et d'être réouvert dès que l'accès aux données est terminé :</p>
+<pre><code>    // la méthode bar va accéder à une donnée partagée
+    // m_mutex est un attribut de la classe Foo 
+    void Foo::bar(){
+        pthread_mutex_lock(&amp;m_mutex);
+
+        // modification
+        this-&gt;m_donnee = 42;
+
+        pthread_mutex_unlock(&amp;m_mutex)
+    }
+</code></pre>
+<p>Lorsqu'un thread 1 exécute cette méthode alors que le mutex est <em>locké</em> par un autre thread, le thread 1 va attendre que le 2ème réouvre le mutex avant de continuer l'exécution de la méthode bar (et <em>locker</em> lui même le mutex).</p>
+<p>Avant d'utiliser un mutex, il faut le "configurer". Il existe deux manières de le faire :</p>
+<ul>
+<li>soit lors de l'initialisation du mutex en lui passant PTHREAD_MUTEX_INITIALIZER en paramètre</li>
+</ul>
+<pre><code>    Foo::Foo() : m_mutex(PTHREAD_MUTEX_INITIALIZER) {
+        ...
+    }
+</code></pre>
+<ul>
+<li>soit en appelant la fonction pthread_mutex_init (après une initialisation par défaut) :</li>
+</ul>
+<pre><code>    pthread_mutex_init(&amp;m_mutex, NULL); // attend l'adresse d'un mutex et une méthode
+                                        // d'initialisation 
+</code></pre>
+<p>Ajoutez l'initialisation du mutex de la classe Appli dans son constructeur et utilisez le mutex dans <strong>toutes les méthodes</strong> de la classe qui accèdent aux données utilisées par l'affichage (n'oubliez pas de réouvrir le mutex en fin de méthode).</p>
+<h2 id="implementer-lalgorithme-par-modele-de-force">Implémenter l'algorithme par modèle de force</h2>
+<h3 id="principe">Principe</h3>
+<p><img alt="force" src="./img/force.png" /></p>
+<p>Le principe des algorithmes par modèle de forces est de simuler un modèle physique masse
+ressort (voir la page <a href="https://fr.wikipedia.org/wiki/Syst%C3%A8me_masse-ressort">wikipedia</a>). Dans cette simulation, les sommets du graphe sont considérés comme des objets physiques et deux objets physiques sont reliés par un ressort si les sommets du graphe correspondants sont reliés par une arête.</p>
+<p>Ces algorithmes suivent le schéma général suivant</p>
+<pre><code>Initialiser la position des sommets (aléatoirement)
+Répéter n fois
+    Pour chaque sommet v 
+        Calculer les forces  d attractions appliquées sur le sommet v par ses voisins
+        Calculer les forces de répulsions appliquées sur le sommet v par tous les autres sommets
+        Additionner ces forces et déplacer le sommet v en fonction en conséquence
+</code></pre>
+<p>Suivant l'algorithme utilisé, le calcul des forces n'est pas le même (utilisation de différents modèles physiques). Dans ce projet, nous utiliserons le modèle suivant :</p>
+<ul>
+<li>la force d'attraction exercée sur le sommet v par un de ses voisins u est : 
+<img alt="Formule" height="25" src="https://latex.codecogs.com/svg.latex?(dist(u, v)/ideal)\cdot\overrightarrow{vu}" /></li>
+</ul>
+<!-- $\over{dist(u, v)}{d\_ideal} \cdot \overrightarrow{vu}$ -->
+
+<ul>
+<li>la force de répulsion exercée sur le sommet v par un autre sommet u : <img alt="Formule" height="25" src="https://latex.codecogs.com/svg.latex?(ideal/dist(u,v)^3)\cdot\overrightarrow{uv}" /></li>
+</ul>
+<p>Où <em>ideal</em> est une longeur idéale d'arête, dans notre algorithme nous la fixerons à 30.</p>
+<h3 id="la-classe-modeledeforce">La classe ModeleDeForce</h3>
+<p>Déclarer dans un fichier ModeleDeForce.h la classe ModeleDeForce avec les méthodes et attributs suivans :</p>
+<ul>
+<li>
+<p>GrapheValue * m_g; </p>
+</li>
+<li>
+<p>ModeleDeForce(GrapheValue *g);</p>
+</li>
+<li>
+<p>void initialiserDessin( unsigned int largeur, unsigned int hauteur);</p>
+</li>
+<li>
+<p>Coord calculerAttractions(const Sommet&amp; v);</p>
+</li>
+<li>Coord calculerRepulsions(const Sommet &amp;v);</li>
+<li>
+<p>Coord calculerForces(const Sommet &amp;v);</p>
+</li>
+<li>
+<p>void deplacer(const Sommet &amp;v, Coord deplacement);</p>
+</li>
+<li>void executer();</li>
+</ul>
+<p>Comme vous pouvez le remarquer, les forces (ou déplacements) exercées sont ici stockées dans des coordonnées. Nous avons implémenté de nombreux opérateurs afin de pouvoir les manipuler plus simplement (addition, soustraction, multiplication par un réel).</p>
+<p>On souhaite aussi interdire l'instanciation par défaut d'un ModeleDeForce. Pour cela nous allons indiquer que nous souhaitons supprimer ce constructeur grace au mot-clef <strong>= delete</strong> :</p>
+<pre><code>ModeleDeForce() = delete;
+</code></pre>
+<p>Dans le fichier ModeleDeForce.cpp, commencez par implémenter le constructeur paramétré (qui ne fait qu'initialiser m_g) et la méthode executer qui exécute la boucle principale de l'algorithme (cf plus).</p>
+<p><strong>calculerForces</strong>
+Implémentez la méthode calculerForces qui appelle les méthode calculerAttractions et calculerRepulsions et retourne la somme de ces forces.</p>
+<p><strong>calculerAttractions</strong>
+Implémentez la méthode calculerAttractions, le principe de cette méthode est de parcourrir les voisins du sommet u passé en paramètre et pour chaque voisin de calculer la force d'attraction qu'il exerce.</p>
+<p>Pour chaque voisin u, il faut commencer par calculer le vecteur vu comme Coord(v) - Coord(u). On peut ensuite calculer la distance dist(u, v) qui sépare les 2 sommets car il s'agit de la norme du vectur vu que l'on vient de calculer. Une fois ces deux variables calculées, il devient simple de calculer la force exercée sur v par son voisin u.</p>
+<p>Il va falloir borner la force d'attraction exercée sur le sommet v. Nous allons réduire la "longueur" (norme) de cette force si elle excède une constante MAX_ATTRACTIVE=300 :</p>
+<pre><code>    if(sommeAttraction.norm() &gt; MAX_ATTRACTIVE){
+        sommeAttraction /= sommeAttraction.norme(); // vecteur unitaire
+        sommeAttraction *= MAX_ATTRACTIVE; // vecteur de norme MAX_ATTRACTIVE
+    }
+</code></pre>
+<p><strong>calculerRepulsions</strong>
+L'idée est très similaire à la différence qu'il ne faut pas simplement parcourrir les voisins de v mais l'ensemble des sommets (différents de v) et calculer la force de répulsion que chaque sommet u exerce sur v.</p>
+<p>NB : attention dans la formule au vecteur uv qui est l'opposé de celui des forces d'attractions.</p>
+<p>NB : attention aux divisions par zéro</p>
+<p>Ici aussi, il faut borner la force de répulsion retourné à une constante MAX_REPULSIVE = 60.</p>
+<p><strong>deplacer</strong>
+Implémentez la méthode déplacer qui déplace le sommet v. On va ici aussi limiter le déplacement (avant de l'appliquer) avec une variable maxDeplacement initialisée à 20 qui devra diminuer au fur et à mesure des itérations de l'algorithme. </p>
+<p><strong>initialiserDessin</strong>
+Implementez la méthode initialiserDessin qui affecte aux sommets du graphes des positions aléatoires comprises entre (0,0) et (largeur, hauteur).</p>
+<p><strong>Ajout d'une force de gravité</strong>
+Aussi afin d'améliorer la convergence de l'algorihtme, il est nécessaire d'ajouter une force de gravité. Pour cela, ajouter une méthode :</p>
+<pre><code>Coord calculerForceGravite(const Sommet &amp;n);
+</code></pre>
+<p>qui calcule et retourne la force de gravité exercée sur n depuis le "centre" du dessin :
+ <img alt="Formule" height="25" src="https://latex.codecogs.com/svg.latex?f_{gravite}(v)=gravite*\overrightarrow{baryv}" /> 
+ où <em>bary</em> est le barycentre du dessin (la somme des positions divisées par le nombre de sommets).</p>
+<h3 id="ajouter-une-methode-executable-dans-un-thread">Ajouter une méthode exécutable dans un thread</h3>
+<p>Ajouter une méthode statique :</p>
+<pre><code>    static void *dessiner(void *vg);
+</code></pre>
+<p>qui instancie un ModeleDeForce et exécute l'algorithme.</p>
+<p>Modifiez le main afin d'exécuter la méthode dessiner dans un thread. </p>
+<p>Compilez et exécutez !</p>
+
+<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
+  <li class="last-updated-holder displayDate loading">
+    <span class="last-updated-text">Last updated:</span>
+    <time role="presentation" datetime="2018-10-25T00:00:00.000Z" data-article-date-source="ms.date"></time>
+  </li>
+<!--
+  <li class="readingTime">
+    2 minutes to read
+  </li>
+-->
+  <li class="contributors-holder">
+    <span class="contributors-text">Contributors</span>
+    <ul class="contributors" data-bi-name="contributors"></ul>
+  </li>
+</ul>
+</div>
+        <div class="col-md-3"><div class="navbar-light navbar-expand-md hidden-print sticky-top sticky-offset" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
         </button>
     </div>
 
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="1"><a href="#dessiner-le-graphe" class="nav-link">Dessiner le graphe</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
+    <div id="toc-collapse" class="navbar-collapse collapse card">
+        <ul class="nav flex-column bs-sidenav">
+            <li class="nav-item main"><a class="nav-link" href="#dessiner-le-graphe">Dessiner le graphe</a></li>
+                <li class="nav-item">
+                    <a href="#executer-la-mise-a-jour-de-lappli-dans-un-thread-separe" class="nav-link">Exécuter la mise à jour de l'Appli dans un thread séparé</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#implementer-lalgorithme-par-modele-de-force" class="nav-link">Implémenter l'algorithme par modèle de force</a>
+                </li>
         </ul>
     </div>
 </div></div>
-                    <div class="col-md-9" role="main">
+      </div>
+      </div>
 
-<h1 id="dessiner-le-graphe">Dessiner le graphe</h1>
-<p>To be announced</p></div>
-            </div>
-        </div>
+      <footer class="col-md-12">
+	<hr>
+	<div class="container">
+	  <p>IUT de Bordeaux</p>
+	</div>
+      </footer>
+      <script>
+	var base_url = ".",
+            shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+      </script>
+      <script src="js/base.js" defer></script>
 
-        <footer class="col-md-12">
-            <hr>
-                <p>IUT de Bordeaux</p>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script>
-            var base_url = ".",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="js/base.js" defer></script>
-
-        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+      <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <p class="h4 modal-title">Keyboard Shortcuts</p>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">

@@ -1,197 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="None">
-
-    <style>
-        p { text-align: justify}
-    </style>
-
-    <link rel="shortcut icon" href="img/favicon.ico">
-    <title>AOP 4.2 Programmer en C++ sans pointeur (ou presque)</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <head>
+      <script>
+	// Hack for scrolling window when linking to anchor tag with fixed nav header
+        var shiftWindow = function() { scrollBy(0, -75) };
+        window.addEventListener("hashchange", shiftWindow);
+        function load() { if (window.location.hash) shiftWindow(); }
+      </script>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
+        
+        
+        <link rel="shortcut icon" href="./img/favicon.ico">
+        <title>AOP 4.2 Programmer en C++ sans pointeur (ou presque)</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/base.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/purebasic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
     <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-    <script src="js/jquery-1.10.2.min.js" defer></script>
-    <script src="js/bootstrap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/http.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-</head>
+    <script src="js/base.js"></script> 
+    </head>
 
-<body class="homepage">
-    <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">AOP 4.2 Programmer en C++ sans pointeur (ou presque)</a>
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <body class="homepage ">
 
-            <!-- Expanded navigation -->
-            <div id="navbar-collapse" class="navbar-collapse collapse">
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                    <li class="navitem active">
-                        <a href="index.html" class="nav-link">Descriptif</a>
-                    </li>
-                    <li class="navitem">
-                        <a href="etape1.html" class="nav-link">Etape 1</a>
-                    </li>
-                    <li class="navitem">
-                        <a href="etape2.html" class="nav-link">Etape 2</a>
-                    </li>
-                    <li class="navitem">
-                        <a href="etape3.html" class="nav-link">Etape 3</a>
-                    </li>
-                    <li class="navitem">
-                        <a href="etape4.html" class="nav-link">Etape 4</a>
-                    </li>
-                    <li class="navitem">
-                        <a href="etape5.html" class="nav-link">Etape 5</a>
-                    </li>
-                </ul>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+	<div class="container">
+	<a class="navbar-brand" href="index.html">AOP 4.2 Programmer en C++ sans pointeur (ou presque)</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+	</button>
 
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a rel="prev" class="nav-link disabled">
-                            <i class="fa fa-arrow-left"></i> Previous
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a rel="next" href="etape1.html" class="nav-link">
-                            Next <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </li>
-                </ul>
+	<div class="collapse navbar-collapse">
+          <!-- Main navigation -->
+          <nav class="nav">
+            <ul class="navbar-nav">
+              <li class="active">
+                <a class="nav-link" href="index.html">Descriptif</a>
+              </li>
+              <li >
+                <a class="nav-link" href="etape1.html">Etape 1</a>
+              </li>
+              <li >
+                <a class="nav-link" href="etape2.html">Etape 2</a>
+              </li>
+              <li >
+                <a class="nav-link" href="etape3.html">Etape 3</a>
+              </li>
+              <li >
+                <a class="nav-link" href="etape4.html">Etape 4</a>
+              </li>
+              <li >
+                <a class="nav-link" href="etape5.html">Etape 5</a>
+              </li>
+            </ul>
+          </nav>
+
+          <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+          </ul>
+	</div>
+	</div>
+      </nav><div id="content" class="container">
+        
+      <div class="row">
+        <div class="col-md-9" role="main">
+
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    
+    <li class="breadcrumb-item active" aria-current="page">Descriptif</li>
+  </ol>
+</nav>
+
+
+<h1 id="programmer-une-application-graphique-c-sans-pointeurs-ou-presque">Programmer une application graphique C++ sans pointeurs (ou presque)</h1>
+<p>Au cours de ce projet, vous allez programmer une application graphique en C++ en 5 étapes. Vous serez guidés tout au long de la semaine afin d'apprendre la bases de ce langage. Le C++ est souvent considéré comme compliqué et est délaissé au profit d'autres langages de plus haut niveau. Malheureusement cette réputation n'est pas complètement usurpée, il peut devenir excessivement technique. En évitant d'utiliser l'allocation dynamique (sur le tas), vous verrez qu'il est tout de même possible de construire des applications intéressantes.</p>
+<p>L'objectif de l'application que vous allez développer est d'afficher et de dessiner un graphe.</p>
+<p><img alt="video exemple" src="./img/anim_dessin.gif" /></p>
+<p>Pour cela, vous devrez développer 5 jalons au cours de la semaines, globalement :</p>
+<ol>
+<li>la 1ère version permettra de charger un graphe depuis un fichier et de le manipuler</li>
+<li>la 2nde version permettra d'ajouter au graphe des informations permettant de l'afficher (coordonnée, couleur, <em>label</em>). Vous aurez à disposition un bibliothèque permettant de l'afficher. </li>
+<li>vous implémenterez ensuite l'application graphique capable d'afficher le graphe</li>
+<li>afin de préparer l'étape finale qui consistera à dessiner le graphe en même temps qu'il est affiché, vous mettrez ensuite en place un <em>pattern observer</em> entre le graphe (l'observable) et la fenêtre graphique (l'observateur).</li>
+<li>enfin vous implémenterez l'algorithme de dessin de graphe. De tels algorithmes prennent en entrée un graphe et calcule (de différentes façons) les coordonnées de ses sommets.</li>
+</ol>
+<!-- Vous trouverez sur la page Moodle de l'[AOP 4.2](https://moodle1.u-bordeaux.fr/course/view.php?id=12439) les exécutables correspondant à ces 5 étapes ainsi que des fichiers fournis. Ces exécutables ont été compilés au département et pourraient bien ne pas s'exécuter sur vos ordinateurs personnels. -->
+
+<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
+  <li class="last-updated-holder displayDate loading">
+    <span class="last-updated-text">Last updated:</span>
+    <time role="presentation" datetime="2018-10-25T00:00:00.000Z" data-article-date-source="ms.date"></time>
+  </li>
+<!--
+  <li class="readingTime">
+    2 minutes to read
+  </li>
+-->
+  <li class="contributors-holder">
+    <span class="contributors-text">Contributors</span>
+    <ul class="contributors" data-bi-name="contributors"></ul>
+  </li>
+</ul>
+</div>
+        <div class="col-md-3"><div class="navbar-light navbar-expand-md hidden-print sticky-top sticky-offset" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    <div id="toc-collapse" class="navbar-collapse collapse card">
+        <ul class="nav flex-column bs-sidenav">
+            <li class="nav-item main"><a class="nav-link" href="#programmer-une-application-graphique-c-sans-pointeurs-ou-presque">Programmer une application graphique C++ sans pointeurs (ou presque)</a></li>
+        </ul>
+    </div>
+</div></div>
+      </div>
+      </div>
+
+      <footer class="col-md-12">
+	<hr>
+	<div class="container">
+	  <p>IUT de Bordeaux</p>
+	</div>
+      </footer>
+      <script>
+	var base_url = ".",
+            shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+      </script>
+      <script src="js/base.js" defer></script>
+
+      <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="h4 modal-title">Keyboard Shortcuts</p>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
             </div>
         </div>
     </div>
+</div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse"
-                            data-target="#toc-collapse" title="Table of Contents">
-                            <span class="fa fa-angle-down"></span>
-                        </button>
-                    </div>
-
-
-                    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
-                        <ul class="nav flex-column">
-
-                            <li class="nav-item" data-level="1"><a
-                                    href="#programmer-une-application-graphique-c-sans-pointeurs-ou-presque"
-                                    class="nav-link">Programmer une application graphique C++ sans pointeurs (ou
-                                    presque)</a>
-                                <ul class="nav flex-column">
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-9" role="main">
-
-                <h1 id="programmer-une-application-graphique-c-sans-pointeurs-ou-presque">Programmer une application
-                    graphique C++ sans pointeurs (ou presque)</h1>
-                <p>Au cours de ce projet, vous allez programmer une application graphique en
-                    C++ en 5 étapes. Vous serez guidés tout au long de la semaine afin d'apprendre la bases de ce
-                    langage. Le C++ est souvent considéré comme compliqué et est délaissé au profit d'autres langages de
-                    plus haut niveau. Malheureusement cette réputation n'est pas complètement usurpée, il peut devenir
-                    excessivement technique. En évitant d'utiliser l'allocation dynamique (sur le tas), vous verrez
-                    qu'il est tout de même possible de construire des applications intéressantes.</p>
-                <p>L'objectif de l'application que vous allez développer est d'afficher et de dessiner un graphe. </p>
-                <p><img alt="video exemple" src="./img/anim_dessin.gif" /></p>
-                <p>Pour cela, vous devrez développer 5 jalons au cours de la semaine, globalement :</p>
-                <ol>
-                    <li>la 1ère version permettra de charger un graphe depuis un fichier et de le manipuler</li>
-                    <li>la 2nde version permettra d'ajouter au graphe des informations permettant de l'afficher
-                        (coordonnées, couleur, <em>label</em>). Vous aurez à disposition une bibliothèque permettant de
-                        l'afficher. </li>
-                    <li>vous implémenterez ensuite l'application graphique capable d'afficher le graphe</li>
-                    <li>afin de préparer l'étape finale qui consistera à dessiner le graphe en même temps qu'il est
-                        affiché, vous mettrez ensuite en place un <em>pattern observer</em> entre le graphe (l'observable) et la
-                        fenêtre graphique (l'observateur). </li>
-                    <li>enfin vous implémenterez l'algorithme de dessin de graphe. De tels algorithmes prennent en entrée un graphe
-                        et calcule (de différentes façons) les coordonnées de ses sommets.</li>
-                </ol>
-                <p>Vous trouverez sur la page Moodle de l'<a
-                        href="https://moodle1.u-bordeaux.fr/course/view.php?id=12439">AOP 4.2</a> les exécutables
-                    correspondant à ces 5 étapes ainsi que des fichiers fournis. Ces exécutables ont été compilés au
-                    département et pourraient bien ne pas s'exécuter sur vos ordinateurs personnels.</p>
-            </div>
-        </div>
-    </div>
-
-    <footer class="col-md-12">
-        <hr>
-        <p>IUT de Bordeaux</p>
-        <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-    </footer>
-    <script>
-        var base_url = ".",
-            shortcuts = { "help": 191, "next": 78, "previous": 80, "search": 83 };
-    </script>
-    <script src="js/base.js" defer></script>
-
-    <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                    <button type="button" class="close" data-dismiss="modal"><span
-                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                </div>
-                <div class="modal-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th style="width: 20%;">Keys</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="help shortcut"><kbd>?</kbd></td>
-                                <td>Open this help</td>
-                            </tr>
-                            <tr>
-                                <td class="next shortcut"><kbd>n</kbd></td>
-                                <td>Next page</td>
-                            </tr>
-                            <tr>
-                                <td class="prev shortcut"><kbd>p</kbd></td>
-                                <td>Previous page</td>
-                            </tr>
-                            <tr>
-                                <td class="search shortcut"><kbd>s</kbd></td>
-                                <td>Search</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
-        </div>
-    </div>
-
-</body>
-
+    </body>
 </html>
 
 <!--
 MkDocs version : 1.4.2
-Build Date UTC : 2023-03-30 13:53:12.979101+00:00
+Build Date UTC : 2023-04-04 21:28:43.075540+00:00
 -->
