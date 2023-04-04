@@ -4,7 +4,7 @@ html {
     scroll-padding-top: calc(3.5rem + 20px);
 }
 
-body > .container {
+body>.container {
     margin-top: 20px;
 }
 
@@ -21,10 +21,11 @@ body > .container {
     max-width: 100%;
 }
 
-pre, code {
+pre,
+code {
     background: #e9ecef;
     color: #000;
-    border: 1px solid rgba(0,0,0,0.125);
+    border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 pre {
@@ -43,11 +44,11 @@ pre code {
 }
 
 a code {
-    color: #007fff;
+    color: rgb(0, 0, 140);
 }
 
 a:hover code {
-    color: #0059b3;
+    color: rgb(0, 0, 140);
 }
 
 kbd {
@@ -56,8 +57,8 @@ kbd {
     color: #fff;
     background-color: #333;
     border-radius: 3px;
-    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.25);
-    box-shadow: inset 0 -1px 0 rgba(0,0,0,.25);
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .25);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .25);
 }
 
 footer {
@@ -71,6 +72,7 @@ footer {
     margin-top: 60px;
 }
 
+
 /* Style the admonitions. */
 
 .admonition {
@@ -78,7 +80,7 @@ footer {
     border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-.admonition > .admonition-title {
+.admonition>.admonition-title {
     margin: 0;
     padding: 0.75rem 1rem;
     background: rgba(0, 0, 0, 0.03);
@@ -86,48 +88,53 @@ footer {
     font-size: 1rem;
 }
 
-.admonition > * {
+.admonition>* {
     margin-left: 1rem;
     margin-right: 1rem;
 }
 
-.admonition > *:not(.admonition-title):first-of-type,
-.admonition > .admonition-title + * {
+.admonition>*:not(.admonition-title):first-of-type,
+.admonition>.admonition-title+* {
     margin-top: 1rem;
 }
 
-.admonition > *:last-child {
+.admonition>*:last-child {
     margin-bottom: 1rem;
 }
 
+
 /* Style each kind of admonition. */
 
-.admonition.note, .admonition.note > .admonition-title {
+.admonition.note,
+.admonition.note>.admonition-title {
     border-color: #7643a8;
 }
 
-.admonition.note > .admonition-title {
+.admonition.note>.admonition-title {
     color: #fff;
     background-color: #9954bb;
 }
 
-.admonition.warning, .admonition.warning > .admonition-title {
+.admonition.warning,
+.admonition.warning>.admonition-title {
     border-color: #ff4309;
 }
 
-.admonition.warning > .admonition-title {
+.admonition.warning>.admonition-title {
     color: #fff;
     background-color: #ff7518;
 }
 
-.admonition.danger, .admonition.danger > .admonition-title {
+.admonition.danger,
+.admonition.danger>.admonition-title {
     border-color: #f0005e;
 }
 
-.admonition.danger > .admonition-title {
+.admonition.danger>.admonition-title {
     color: #fff;
     background-color: #ff0039;
 }
+
 
 /*
  * Side navigation
@@ -148,11 +155,13 @@ footer {
     padding: 0;
 }
 
-.bs-sidebar > .card {
+.bs-sidebar>.card {
     background-color: #e9ecef !important;
 }
 
+
 /* Toggle (vertically flip) sidebar collapse icon */
+
 .bs-sidebar .navbar-toggler span {
     -moz-transform: scale(1, -1);
     -webkit-transform: scale(1, -1);
@@ -169,28 +178,34 @@ footer {
     transform: scale(1, 1);
 }
 
+
 /* First level of nav */
-.bs-sidebar > .navbar-collapse > .nav {
-    padding-top:    10px;
+
+.bs-sidebar>.navbar-collapse>.nav {
+    padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 5px;
     width: 100%;
 }
 
+
 /* All levels of nav */
-.bs-sidebar .nav > li > a {
+
+.bs-sidebar .nav>li>a {
     display: block;
     padding: 5px 20px;
     z-index: 1;
 }
-.bs-sidebar .nav > li > a:hover,
-.bs-sidebar .nav > li > a:focus {
+
+.bs-sidebar .nav>li>a:hover,
+.bs-sidebar .nav>li>a:focus {
     text-decoration: none;
     border-right: 1px solid;
 }
-.bs-sidebar .nav > li > a.active,
-.bs-sidebar .nav > li > a.active:hover,
-.bs-sidebar .nav > li > a.active:focus {
+
+.bs-sidebar .nav>li>a.active,
+.bs-sidebar .nav>li>a.active:hover,
+.bs-sidebar .nav>li>a.active:focus {
     font-weight: bold;
     background-color: transparent;
     border-right: 1px solid;
@@ -200,11 +215,11 @@ footer {
     margin-left: 1em;
 }
 
-.bs-sidebar .nav > li > a {
+.bs-sidebar .nav>li>a {
     font-weight: bold;
 }
 
-.bs-sidebar .nav .nav > li > a {
+.bs-sidebar .nav .nav>li>a {
     font-weight: normal;
 }
 
@@ -213,8 +228,13 @@ footer {
     padding-left: .5em;
 }
 
-h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .headerlink, h5:hover .headerlink, h6:hover .headerlink{
-    display:inline-block;
+h1:hover .headerlink,
+h2:hover .headerlink,
+h3:hover .headerlink,
+h4:hover .headerlink,
+h5:hover .headerlink,
+h6:hover .headerlink {
+    display: inline-block;
 }
 
 @media (max-width: 991.98px) {
@@ -224,7 +244,9 @@ h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .head
     }
 }
 
+
 /* display submenu relative to parent*/
+
 .dropdown-submenu {
     position: relative;
 }
@@ -234,19 +256,23 @@ h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .head
     background-color: #f8f9fa;
 }
 
-.dropdown-submenu > .dropdown-menu {
+.dropdown-submenu>.dropdown-menu {
     margin: 0 0 0 1.5rem;
     padding: 0;
     border-width: 0;
 }
 
+
 /* display sub menu on hover*/
+
 .dropdown-submenu:hover>.dropdown-menu {
     display: block;
 }
 
+
 /* little arrow */
-.dropdown-submenu > a::after {
+
+.dropdown-submenu>a::after {
     display: block;
     content: " ";
     float: right;
@@ -260,7 +286,7 @@ h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .head
     margin-right: -10px;
 }
 
-.dropdown-submenu:hover > a::after {
+.dropdown-submenu:hover>a::after {
     border-left-color: #404040;
 }
 
@@ -269,12 +295,10 @@ h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .head
         overflow-y: auto;
         max-height: calc(100vh - 3.5rem);
     }
-
     .dropdown-submenu {
         position: relative;
     }
-
-    .dropdown-submenu > .dropdown-menu {
+    .dropdown-submenu>.dropdown-menu {
         position: fixed !important;
         margin-top: -9px;
         margin-left: -2px;
