@@ -180,7 +180,7 @@ Répéter n fois
 <p>Suivant l'algorithme utilisé, le calcul des forces n'est pas le même (utilisation de différents modèles physiques). Dans ce projet, nous utiliserons le modèle suivant :</p>
 <ul>
 <li>la force d'attraction exercée sur le sommet v par un de ses voisins u est : 
-<img alt="Formule" height="25" src="https://latex.codecogs.com/svg.latex?(dist(u, v)/ideal)\cdot\overrightarrow{vu}" /></li>
+<img alt="Formule" height="25" src="https://latex.codecogs.com/svg.latex?(dist(u, v)/ideal^2)\cdot\overrightarrow{vu}" /></li>
 </ul>
 <!-- $\over{dist(u, v)}{d\_ideal} \cdot \overrightarrow{vu}$ -->
 
@@ -242,7 +242,7 @@ Aussi afin d'améliorer la convergence de l'algorihtme, il est nécessaire d'ajo
 <pre><code>Coord calculerForceGravite(const Sommet &amp;n);
 </code></pre>
 <p>qui calcule et retourne la force de gravité exercée sur n depuis le "centre" du dessin :
- <img alt="Formule" height="25" src="https://latex.codecogs.com/svg.latex?f_{gravite}(v)=gravite*\overrightarrow{baryv}" /> 
+ <img alt="Formule" height="25" src="https://latex.codecogs.com/svg.latex?f_{gravite}(v)=gravite*\overrightarrow{vbary}" /> 
  où <em>bary</em> est le barycentre du dessin (la somme des positions divisées par le nombre de sommets).</p>
 <h3 id="ajouter-une-methode-executable-dans-un-thread">Ajouter une méthode exécutable dans un thread</h3>
 <p>Ajouter une méthode statique :</p>
