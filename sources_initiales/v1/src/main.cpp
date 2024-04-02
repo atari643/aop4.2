@@ -1,7 +1,6 @@
 #include <iostream>
 
-/*#include "Graphe.h"
-*/
+#include "Graphe.h"
 #include "Arete.h"
 #include "Sommet.h"
 using namespace std;
@@ -9,7 +8,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    /*if (argc != 2){
+    if (argc != 2){
         cout << "Usage: ./app <graph_file>.csv" << endl;
         return 1;
     }
@@ -22,6 +21,6 @@ int main(int argc, char *argv[])
         return 1;
     }
     cout << g.nbSommets() << " " << g.nbAretes() << endl;
-    return 0;*/
+    return 0;
 }
 

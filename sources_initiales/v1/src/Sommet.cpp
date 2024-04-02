@@ -6,7 +6,10 @@ using namespace std; // l'espace de nom standard contient un grnad nombre de fon
 
 int Sommet::last_id = 0; // si vous avez déclaré un attibut static 
 Sommet::Sommet(bool valide){
-    this->valide = valide;
+    if(valide){
+        s_id = last_id;
+        last_id++;
+    }
 }
 int Sommet::id() const{
     return s_id;
@@ -14,4 +17,18 @@ int Sommet::id() const{
 }
 bool Sommet::valid() const {
     return valide;
+}
+bool Sommet::operator<(const Sommet & autre) const {
+    if(s_id < autre.id()){
+        return true;
+    }else{
+        return false;
+    }
+}
+bool Sommet::operator==(const Sommet & autre) const {
+    if(s_id == autre.id()){
+        return true;
+    }else{
+        return false;
+    }
 }
