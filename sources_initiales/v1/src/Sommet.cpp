@@ -9,6 +9,8 @@ Sommet::Sommet(bool valide){
     if(valide){
         s_id = last_id;
         last_id++;
+    }else{
+        s_id=-1;
     }
 }
 int Sommet::id() const{

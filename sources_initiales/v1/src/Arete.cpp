@@ -9,6 +9,8 @@ Arete::Arete(bool valide){
     if(valide){
         a_id = last_id;
         last_id++;
+    }else{
+        a_id=-1;
     }
 }
 int Arete::id() const{
