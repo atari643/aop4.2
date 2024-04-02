@@ -11,7 +11,9 @@ CXX = g++
 LD = g++
 
 # C++ flags
-CXXFLAGS = -std=c++17
+CXXFLAGS = -std=c++17 
+DEBUGFLAGS = -g -O0 -DDEBUG
+
 # C/C++ flags
 CPPFLAGS = -Wall -Wextra -pedantic
 # dependency-generation flags
@@ -59,6 +61,9 @@ $(OBJ)/%.o:	$(SRC)/%.cpp
 .PHONY: remake
 remake:	clean $(BIN)/$(EXE)
 
+.PHONY: debug
+debug: CXXFLAGS += $(DEBUGFLAGS)
+debug: all
 # execute the program
 .PHONY: run
 run: $(BIN)/$(EXE)
