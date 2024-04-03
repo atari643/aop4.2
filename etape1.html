@@ -1,91 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-      <script>
-	// Hack for scrolling window when linking to anchor tag with fixed nav header
-        var shiftWindow = function() { scrollBy(0, -75) };
-        window.addEventListener("hashchange", shiftWindow);
-        function load() { if (window.location.hash) shiftWindow(); }
-      </script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
         
-        <link rel="shortcut icon" href="./img/favicon.ico">
+        <link rel="shortcut icon" href="img/favicon.ico">
         <title>Etape 1 - AOP 4.2 Programmer en C++ sans pointeur (ou presque)</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/base.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-    <link href="css/style.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/purebasic.min.css">
+        <link href="css/style.css" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/http.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script src="js/base.js"></script> 
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
-    <body class="">
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">AOP 4.2 Programmer en C++ sans pointeur (ou presque)</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-	<div class="container">
-	<a class="navbar-brand" href="index.html">AOP 4.2 Programmer en C++ sans pointeur (ou presque)</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-	</button>
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="index.html" class="nav-link">Descriptif</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="etape1.html" class="nav-link">Etape 1</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="etape2.html" class="nav-link">Etape 2</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="etape3.html" class="nav-link">Etape 3</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="etape4.html" class="nav-link">Etape 4</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="etape5.html" class="nav-link">Etape 5</a>
+                            </li>
+                        </ul>
 
-	<div class="collapse navbar-collapse">
-          <!-- Main navigation -->
-          <nav class="nav">
-            <ul class="navbar-nav">
-              <li >
-                <a class="nav-link" href="index.html">Descriptif</a>
-              </li>
-              <li class="active">
-                <a class="nav-link" href="etape1.html">Etape 1</a>
-              </li>
-              <li >
-                <a class="nav-link" href="etape2.html">Etape 2</a>
-              </li>
-              <li >
-                <a class="nav-link" href="etape3.html">Etape 3</a>
-              </li>
-              <li >
-                <a class="nav-link" href="etape4.html">Etape 4</a>
-              </li>
-              <li >
-                <a class="nav-link" href="etape5.html">Etape 5</a>
-              </li>
-            </ul>
-          </nav>
+                    <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a rel="prev" href="index.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="etape2.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-          <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-          </ul>
-	</div>
-	</div>
-      </nav><div id="content" class="container">
-        
-      <div class="row">
-        <div class="col-md-9" role="main">
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
 
-
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
     
-    <li class="breadcrumb-item active" aria-current="page">Etape 1</li>
-  </ol>
-</nav>
-
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#charger-et-manipuler-un-graphe" class="nav-link">Charger et manipuler un graphe</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#organiser-son-code-source" class="nav-link">Organiser son code source</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#declarer-et-implementer-sa-1ere-classe-en-c" class="nav-link">Déclarer et implémenter sa 1ère classe en C++</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#implementer-les-classes-sommet-et-arete" class="nav-link">Implémenter les classes Sommet et Arete</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#classe-arete" class="nav-link">Classe Arete</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#classe-graphe" class="nav-link">Classe Graphe</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
 
 <h1 id="charger-et-manipuler-un-graphe">Charger et manipuler un graphe</h1>
 <p>Avant toute chose, nous vous recommandons vivement d'utiliser un dépot gitLab pour versionner votre code source tout au long de la semaine.</p>
@@ -96,6 +121,7 @@
 </ul>
 <pre><code>    ./demo datasets/hollywood.csv
 </code></pre>
+
 <ul>
 <li><strong>sources_initiales</strong> : contiendra des sources et une arborescence de fichiers à respecter pendant ce projet . Merci de bien la respecter tout au long de la semaine (faute de quoi la compilation sera moins aisée):<ul>
 <li>bin : contiendra l'exécutable une fois généré</li>
@@ -132,6 +158,7 @@ class Foo {
 
 #endif  // &quot;ferme&quot; ifndef
 </code></pre>
+
 <p>On va ensuite implémenter cette classe dans un fichier Foo.cpp (là aussi le nom de fichier porte celui de la classe) :</p>
 <pre><code>#include &lt;iostream&gt; // permet d'afficher dans le terminal
 
@@ -156,6 +183,7 @@ void Foo::methodePrivee(){
     cout &lt;&lt; &quot;inutile&quot; &lt;&lt; endl;
 }
 </code></pre>
+
 <h2 id="implementer-les-classes-sommet-et-arete">Implémenter les classes Sommet et Arete</h2>
 <p>Nous avons choisi d'utiliser une modélisation plus que rudimentaire des sommets et arêtes du graphe. Dans ce projet, un sommet sera modélisé par un identifiant (de même pour une arête). Comme il est parfois utile de pouvoir manipuler un sommet (ou une arête) invalide, nous utiliserons une valeur d'identifiant spéciale pour cela (typiquement -1).</p>
 <h3 id="la-classe-sommet">La classe Sommet</h3>
@@ -171,30 +199,37 @@ void Foo::methodePrivee(){
 <pre><code>    int Sommet::attribut_static = 0; // si vous avez déclaré un attibut static 
                                      // de type int dans la classe Sommet
 </code></pre>
+
 <p>Si vous exécutiez l'instruction suivante :</p>
 <pre><code>    Sommet s;
 </code></pre>
+
 <p>Alors le compilateur se plaindrait car dès lors que l'on définit un constructeur, le constructeur par défaut n'est plus fourni automatiquement. Pour pallier ce problème, vous pouvez ajouter un constructeur sans paramètre à la classe Sommet (un sommet par défaut doit alors être valide). Vous pouvez aussi donner une valeur par défaut au paramètre du constructeur que vous avez déclaré :</p>
 <pre><code>    Sommet(bool valide = true);
 </code></pre>
+
 <p>En déclarant votre constructeur comme cela (il ne faut pas changer l'implémentation), si un sommet est instancié sans paramètre, c'est bien lui qui sera appelé.</p>
 <pre><code>    Sommet n ; // appel maintenant le constructeur de Sommet 
                // en utilisant la valeur par défaut, le sommet sera valide
     Sommet nInvalide (false); // va instancier un sommet invalide
 </code></pre>
+
 <h3 id="compiler-le-programme">Compiler le programme</h3>
 <p>Afin de compiler votre code, vous pouvez commenter le contenu de la fonction principale (main) contenue dans le fichier main.cpp ainsi que l'inclusion des fichier Graphe.h et Arete.h. Vous ne pourrez pas l'exécuter mais cela permettra tout de même de relever d'éventuelles erreurs de syntaxe.</p>
 <p>Pour le compiler, ouvrez un terminal dans le répertoire racine du projet (celui contenant le fichier Makefile) et taper la commande :</p>
 <pre><code>    make
 </code></pre>
+
 <p>make est un outil permettant de compiler un programme (en C ou C++ par exemple) en suivant les règles décrites dans un fichier Makefile. Il est <strong>important</strong> que vous respectiez bien l'arborescence de fichier demandé car le Makefile fourni lui est spécifique.</p>
 <p>Le problème maintenant est que certaines méthodes de la classe Sommet ne peuvent pas être utilisées sur un Sommet constant, par exemple :</p>
 <pre><code>    const Sommet n;
 </code></pre>
+
 <p>En effet, n étant constant, il faut pouvoir garantir qu'il ne soit pas modifié par un appel de méthode. Or la méthode id() (mais aussi valide()) ne garantissent pas qu'elles ne modifient pas l'objet courant. Etant donné que ces méthodes ne devraient pas modifier l'objet courant (demander son identifiant à un Sommet ne devrait pas modifier le Sommet), nous allons déclarer qu'elles ne le font pas en ajoutant le mot-clef <em>const</em></p>
 <pre><code>    int id() const;
     bool valide() const;
 </code></pre>
+
 <p>Ajouter aussi ce mot-clef à la fin de l'entête de la fonction dans le fichier Sommet.cpp</p>
 <p>Ces méthodes sont dites constantes, elles garantissent qu'elles ne modifient pas l'état interne de l'objet et peuvent maintenant être appelées par des Sommets constants.</p>
 <p>Compilez à nouveau votre code et s'il n'y a pas d'erreur, passez à la suite.</p>
@@ -226,6 +261,7 @@ void Foo::methodePrivee(){
 <p>NB : Il ne sera pas nécessaire d'ajouter de constructeur par défaut car celui qui est founi implicitement sera bien suffisant. Si vous souhaitez tout de même ajouter explicitement un constructeur avec un comportement par défaut, vous pourrez l'ajouter dans la déclaration de la classe Graphe uniquement (il n'y a rien à ajouter dans l'implémentation) :</p>
 <pre><code>    Graphe() = default;
 </code></pre>
+
 <p>Comme vous pouvez le voir, un bon nombre de méthodes de cette classe sont déclarées comme constantes. C'est une bonne pratique ! Il faut déclarer comme constante toute méthode qui ne modifie pas l'objet.</p>
 <p>Vous pouvez aussi noter que les paramètres de certaines de ces méthodes sont des constantes (par exemple dans la méthode voisins) et que le nom du paramètre est précédé du caractère &amp;. C'est ce que l'on appelle un passage par référence, cela indique au compilateur que l'argument d'appel utilisé est passé en entrée-sortie (il peut donc être modifié par la fonction/méthode appelée). Ce passage de paramètre, qui n'existe pas en C, permet donc de ne pas copier l'objet (gain en performance). Comme nous avons déclaré ces références comme <em>const</em>, celles-ci ne pourront pas être modifiées. Cela ne change en rien la manière d'appeler l'une de ces fonctions, par exemple :</p>
 <pre><code>    Graphe g;
@@ -235,17 +271,20 @@ void Foo::methodePrivee(){
     int d = g.degre(n);
 
 </code></pre>
+
 <p>Enfin, Vous pouvez remarquer  l'utilisation d'un type que vous ne connaissez pas : <strong>set</strong>. Les sets en C++ font partie de la bibliothèque standard (std). Ils fonctionnent de manière similaire au TreeSet en java. En effet, pour pouvoir stocker des objets dans un set, il faut pouvoir les comparer. </p>
-<p>NB : Comme nous n'avons pas ouvert l'espace de nom std dans le fichier (c'est une mauvaise pratique d'ouvrir les espaces de nom dans les fichiers d'entête car en les incluant dans un autre fichier, on y ouvrirait aussi l'espace de nom)</p>
+<p>NB : Comme nous n'avons pas ouvert l'espace de nom std dans le fichier (c'est une mauvaise pratique d'ouvrir les espaces de nom dans les fichiers d'entête car en les incluant dans un autre fichier, on y ouvrirait aussi l'espace de nom), il est nécessaire de préfixer l'utilisation de <code>set</code> par <code>std::</code>.</p>
 <h3 id="ajout-des-operateurs-de-comparaison-dans-sommet-et-arete">Ajout des opérateurs de comparaison dans Sommet et Arete</h3>
-<p>Vous allez donc ajouter un opérateur de comparaison dans les classes Sommet et Arete. Un opérateur de comparaison en C++ suit toujours la même syntaxe. Pour une classe Foo par exemple :</p>
+<p>Comme il s'agit d'un prérequis de <code>set</code>, vous allez donc ajouter un opérateur de comparaison dans les classes Sommet et Arete. Un opérateur de comparaison en C++ suit toujours la même syntaxe. Pour une classe Foo par exemple :</p>
 <pre><code>    bool operator&lt;(const Foo &amp; autre) const;
 </code></pre>
+
 <pre><code>    bool Foo::operator&lt;(const Foo &amp; autre) const {
         ...
         return le_résultat_de_la_comparaison
     }
 </code></pre>
+
 <p>Dès lors que cet opérateur est défini, il devient possible de comparer les objets:</p>
 <pre><code>    Graphe g;
     ...
@@ -257,6 +296,7 @@ void Foo::methodePrivee(){
     }
 
 </code></pre>
+
 <p>NB : il est possible de (re)définir d'autres opérateurs comme +, -, /, +=,<em>etc.</em> comme nous le verrons plus tard.</p>
 <p>Ajoutez cet opérateur de comparaison dans les classes Sommet et Arete. Assurez-vous que votre code compile toujours.</p>
 <h3 id="choix-de-la-structure-de-donnees-de-la-classe-graphe">Choix de la structure de données de la classe Graphe</h3>
@@ -265,12 +305,15 @@ void Foo::methodePrivee(){
 <pre><code>    std::set&lt;Arete&gt; aretes;
     std::set&lt;Sommet&gt; sommets;
 </code></pre>
+
 <p>Le graphe devra aussi maintenir une correspondance entre ses Arete et les Sommet aux extrémités de celles-ci. Pour cela nous allons utiliser le type <strong>map</strong> (aussi dans std) qui fonctionne de façon similaire aux TreeMap en java. Cette <em>map</em> mettra en correspondance une Arete (clef) avec une paire de Sommet (ses extrémités). En C++, il existe un type <strong>pair</strong> qui permet de stocker une paire de valeur (à la différence de java).</p>
 <pre><code>    std::map&lt;Arete, std::pair&lt;Sommet, Sommet&gt; &gt; aretes2Extremites;
 </code></pre>
+
 <p>Le graphe devra aussi maintenir une correspondance entre chaque Sommet et les Arete qui lui sont incidentes. Nous utiliserons ici aussi une <em>map</em> qui associera à chaque Sommet, l'ensemble des Arete incidentes :</p>
 <pre><code>    std::map&lt; Sommet, std::set&lt;Arete&gt; &gt; sommets2Incidentes;
 </code></pre>
+
 <p>Déclarez et implémentez la classe Graphe. Nous vous conseillons de finir par les méthodes de suppression qui sont un peu plus complexes que les autres (en particulier la suppression de Sommet puisqu'il faut mettre à jour correctement toute la structure de données).</p>
 <p>Compilez !</p>
 <h3 id="chargement-du-graphe">Chargement du graphe</h3>
@@ -325,77 +368,33 @@ void Foo::methodePrivee(){
         return true;
     }
 </code></pre>
+
 <p>Cette méthode correspond au format de fichier en entrée que vous pourrez trouver dans <em>./datasets</em>.</p>
 <p>Décommentez les lignes du main afin que le code s'exécute maintenant totalement. Compilez et exécutez !</p>
 <p>Pour exécuter votre code, tapez la commande suivante dans un terminal (à la racine du projet):</p>
 <pre><code>    ./bin/demo datasets/hollywood.csv
 </code></pre>
-<p>Vous devriez obtenir le même affichage que l'exécutable <strong>demo1</strong>. Si ce n'est pas le cas, corrigez votre code avant de passer à l'étape 2.</p>
 
-<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
-  <li class="last-updated-holder displayDate loading">
-    <span class="last-updated-text">Last updated:</span>
-    <time role="presentation" datetime="2018-10-25T00:00:00.000Z" data-article-date-source="ms.date"></time>
-  </li>
-<!--
-  <li class="readingTime">
-    2 minutes to read
-  </li>
--->
-  <li class="contributors-holder">
-    <span class="contributors-text">Contributors</span>
-    <ul class="contributors" data-bi-name="contributors"></ul>
-  </li>
-</ul>
-</div>
-        <div class="col-md-3"><div class="navbar-light navbar-expand-md hidden-print sticky-top sticky-offset" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
+<p>Vous devriez obtenir le même affichage que l'exécutable <strong>demo1</strong>. Si ce n'est pas le cas, corrigez votre code avant de passer à l'étape 2.</p></div>
+            </div>
+        </div>
 
-    <div id="toc-collapse" class="navbar-collapse collapse card">
-        <ul class="nav flex-column bs-sidenav">
-            <li class="nav-item main"><a class="nav-link" href="#charger-et-manipuler-un-graphe">Charger et manipuler un graphe</a></li>
-                <li class="nav-item">
-                    <a href="#organiser-son-code-source" class="nav-link">Organiser son code source</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#declarer-et-implementer-sa-1ere-classe-en-c" class="nav-link">Déclarer et implémenter sa 1ère classe en C++</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#implementer-les-classes-sommet-et-arete" class="nav-link">Implémenter les classes Sommet et Arete</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#classe-arete" class="nav-link">Classe Arete</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#classe-graphe" class="nav-link">Classe Graphe</a>
-                </li>
-        </ul>
-    </div>
-</div></div>
-      </div>
-      </div>
+        <footer class="col-md-12">
+            <hr>
+                <p>IUT de Bordeaux</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
 
-      <footer class="col-md-12">
-	<hr>
-	<div class="container">
-	  <p>IUT de Bordeaux</p>
-	</div>
-      </footer>
-      <script>
-	var base_url = ".",
-            shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-      </script>
-      <script src="js/base.js" defer></script>
-
-      <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <p class="h4 modal-title">Keyboard Shortcuts</p>
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
