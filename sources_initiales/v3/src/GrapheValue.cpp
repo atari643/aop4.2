@@ -82,30 +82,37 @@ bool GrapheValue::charger(std::string fichier)
 Sommet GrapheValue::ajouterSommet()
 {
     std::cout << "ajout sommet" << std::endl;
-    return Graphe::ajouterSommet();
+    Sommet n=Graphe::ajouterSommet();
+    notifierAjout(n);
+    return n;
 }
 
 Arete GrapheValue::ajouterArete(const Sommet &n1, const Sommet &n2)
 {
     std::cout << "ajout arete" << std::endl;
-    return Graphe::ajouterArete(n1, n2);
+    Arete e=Graphe::ajouterArete(n1, n2);
+    notifierAjout(e);
+    return e;
 }
 
 void GrapheValue::supprimerSommet(const Sommet &n)
 {
     std::cout << "supprimer" << std::endl;
+    notifierSuppression(n);
     Graphe::supprimerSommet(n);
 }
 
 void GrapheValue::supprimerArete(const Arete &e)
 {
     std::cout << "supprimer arete" << std::endl;
+    notifierSuppression(e);
     Graphe::supprimerArete(e);
 }
 
 void GrapheValue::positionSommet(Sommet n, Coord c)
 {
     std::cout << "position sommet" << std::endl;
+    notifierProprieteChangee(n);
     positions.changer(n, c);
 }
 
@@ -137,7 +144,7 @@ void GrapheValue::positionsMinMax(Coord &min, Coord &max)
 
 void GrapheValue::couleurSommet(Sommet n, Couleur c)
 {
-    std::cout << "couleur sommet" << std::endl;
+    notifierProprieteChangee(n);
     couleurs.changer(n, c);
 }
 
@@ -150,6 +157,7 @@ Couleur GrapheValue::couleurSommet(Sommet n)
 void GrapheValue::couleurArete(Arete e, Couleur c)
 {
     std::cout << "couleur arete" << std::endl;
+    notifierProprieteChangee(e);
     couleurs.changer(e, c);
 }
 
@@ -162,6 +170,7 @@ Couleur GrapheValue::couleurArete(Arete e)
 void GrapheValue::etiquetteSommet(Sommet n, std::string etiquette)
 {
     std::cout << "etiquette" << std::endl;
+    notifierProprieteChangee(n);
     labels.changer(n, etiquette);
 }
 
@@ -174,6 +183,7 @@ std::string GrapheValue::etiquetteSommet(Sommet n) const
 void GrapheValue::etiquetteArete(Arete e, std::string etiquette)
 {
     std::cout << "etiquette arete" << std::endl;
+    notifierProprieteChangee(e);
     labels.changer(e, etiquette);
 }
 

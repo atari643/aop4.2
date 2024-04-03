@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 
     Appli app {LARGEUR, HAUTEUR};
     app.setGraphe(g);
-
+    g.attacher(&app);
     while(app.running())
         app.exec();
 

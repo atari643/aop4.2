@@ -3,7 +3,7 @@
 #include <map>
 #include "Sommet.h"
 #include "Arete.h"
-
+#include <cassert>
 template<typename T>
 class Propriete
 {

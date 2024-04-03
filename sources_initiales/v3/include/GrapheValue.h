@@ -4,8 +4,9 @@
 #include "Coord.h"
 #include "Couleur.h"
 #include "Graphe.h"
-#include "../cxx/Propriete.hpp"
-class GrapheValue : public Graphe {
+#include "GrapheObserve.h"
+#include "Propriete.hpp"
+ class GrapheValue : public Graphe, public GrapheObserve {
     private:
         Propriete<Couleur> couleurs;
         Propriete<Coord> positions;
