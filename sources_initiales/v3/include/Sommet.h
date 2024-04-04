@@ -12,6 +12,7 @@ class Sommet {
         bool valid() const;
         bool operator<(const Sommet & autre) const;
         bool operator==(const Sommet & autre) const;
+        bool operator!=(const Sommet & autre) const;
 };
 
 #endif 

@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "GrapheValue.h"
 #include "ObservateurGraphe.h"
-
+#include <pthread.h>
 class Appli : public ObservateurGraphe {
     
 public:
@@ -26,6 +26,8 @@ private:
     sf::RenderWindow m_fenetre;
     sf::Font m_font;
 
+    pthread_mutex_t m_mAJFormes;
+
     std::map<Sommet, sf::CircleShape> m_sommets;
     std::map<Sommet, sf::CircleShape> m_etiquette;
     std::map<Arete, std::pair<sf::Vertex, sf::Vertex> > m_aretes; 
@@ -34,9 +36,9 @@ private:
     bool m_montre_etiquette;
     bool m_interpoler_couleurs;
 
-    static const float RAYON;
+    static float RAYON;
     static const std::string FICHIER_FONT;
-    static const float SCALE;
+    static float SCALE;
 
     unsigned int m_largeur, m_hauteur;
 

@@ -11,10 +11,11 @@
         Propriete<Couleur> couleurs;
         Propriete<Coord> positions;
         Propriete<std::string> labels;
-        Coord min;
-        Coord max;
+        
 
     public:
+        Coord min;
+        Coord max;
         bool charger(std::string fichier) override;
         Sommet ajouterSommet();
         Arete ajouterArete(const Sommet &n1, const Sommet &n2);

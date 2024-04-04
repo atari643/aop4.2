@@ -119,27 +119,14 @@ void GrapheValue::positionSommet(Sommet n, Coord c)
 void GrapheValue::positionsMinMax(Coord &min, Coord &max)
 {
     std::cout << "positions min max" << std::endl;
-    for(auto sommet : sommets()){
-        Coord c = positionSommet(sommet);
-        
-        if (c[0] < min[0]){
-            min[0] = c[0];
-        
-        }
-        if (c[1] < min[1]){
-            min[1] = c[1];
-        
-        }
-        if (c[0] > max[0]){
-            max[0] = c[0];
-        
-        }
-        if (c[1] > max[1]){
-            max[1] = c[1];
-        
-        }
+    for (auto n : sommets())
+    {
+        Coord c = positionSommet(n);
+        min[0] = std::min(min[0], c[0]);
+        min[1] = std::min(min[1], c[1]);
+        max[0] = std::max(max[0], c[0]);
+        max[1] = std::max(max[1], c[1]);
     }
-
 }
 
 void GrapheValue::couleurSommet(Sommet n, Couleur c)

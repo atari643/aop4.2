@@ -34,3 +34,10 @@ bool Sommet::operator==(const Sommet & autre) const {
         return false;
     }
 }
+bool Sommet::operator!=(const Sommet & autre) const {
+    if(s_id != autre.id()){
+        return true;
+    }else{
+        return false;
+    }
+}

@@ -5,13 +5,29 @@
 #include "Sommet.h"
 #include "Arete.h"
 #include "Appli.h"
+#include <pthread.h>
+#include "ModeleDeForce.h"
+#include "signal.h"
 using namespace std;
 
 const int LARGEUR = 1200;
 const int HAUTEUR = 800;
 
+
+void * miseAJourAppli(void * param){
+    GrapheValue * g = (GrapheValue *)param;
+    Appli app {LARGEUR, HAUTEUR};
+    app.setGraphe(*g); 
+    g->attacher(&app);
+    while(app.running()){
+        app.exec();
+    }
+    pthread_exit(0);
+}
+
 int main(int argc, char *argv[])
 {
+    pthread_t thDessiner, thMiseAJourAppli;
     if (argc != 2){
         cout << "Usage: ./app <graph_file>.txt" << endl;
         return 1;
@@ -25,13 +41,14 @@ int main(int argc, char *argv[])
         cout << "Erreur de chargement de fichier" << endl;
         return 1;
     }
-
-    Appli app {LARGEUR, HAUTEUR};
-    app.setGraphe(g);
-    g.attacher(&app);
-    while(app.running())
-        app.exec();
-
+    pthread_create(&thMiseAJourAppli, nullptr, miseAJourAppli, &g);
+    pthread_create(&thDessiner, nullptr, ModeleDeForce::dessiner, &g);
+    
+    
+    
+    
+    pthread_join(thMiseAJourAppli, nullptr);
+    pthread_join(thDessiner, nullptr);
+    
     return 0;
 }
-
