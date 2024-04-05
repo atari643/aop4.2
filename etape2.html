@@ -1,91 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-      <script>
-	// Hack for scrolling window when linking to anchor tag with fixed nav header
-        var shiftWindow = function() { scrollBy(0, -75) };
-        window.addEventListener("hashchange", shiftWindow);
-        function load() { if (window.location.hash) shiftWindow(); }
-      </script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
         
-        <link rel="shortcut icon" href="./img/favicon.ico">
+        <link rel="shortcut icon" href="img/favicon.ico">
         <title>Etape 2 - AOP 4.2 Programmer en C++ sans pointeur (ou presque)</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/base.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-    <link href="css/style.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/purebasic.min.css">
+        <link href="css/style.css" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/http.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script src="js/base.js"></script> 
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
-    <body class="">
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">AOP 4.2 Programmer en C++ sans pointeur (ou presque)</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-	<div class="container">
-	<a class="navbar-brand" href="index.html">AOP 4.2 Programmer en C++ sans pointeur (ou presque)</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-	</button>
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="index.html" class="nav-link">Descriptif</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="etape1.html" class="nav-link">Etape 1</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="etape2.html" class="nav-link">Etape 2</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="etape3.html" class="nav-link">Etape 3</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="etape4.html" class="nav-link">Etape 4</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="etape5.html" class="nav-link">Etape 5</a>
+                            </li>
+                        </ul>
 
-	<div class="collapse navbar-collapse">
-          <!-- Main navigation -->
-          <nav class="nav">
-            <ul class="navbar-nav">
-              <li >
-                <a class="nav-link" href="index.html">Descriptif</a>
-              </li>
-              <li >
-                <a class="nav-link" href="etape1.html">Etape 1</a>
-              </li>
-              <li class="active">
-                <a class="nav-link" href="etape2.html">Etape 2</a>
-              </li>
-              <li >
-                <a class="nav-link" href="etape3.html">Etape 3</a>
-              </li>
-              <li >
-                <a class="nav-link" href="etape4.html">Etape 4</a>
-              </li>
-              <li >
-                <a class="nav-link" href="etape5.html">Etape 5</a>
-              </li>
-            </ul>
-          </nav>
+                    <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a rel="prev" href="etape1.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="etape3.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-          <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-          </ul>
-	</div>
-	</div>
-      </nav><div id="content" class="container">
-        
-      <div class="row">
-        <div class="col-md-9" role="main">
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
 
-
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
     
-    <li class="breadcrumb-item active" aria-current="page">Etape 2</li>
-  </ol>
-</nav>
-
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#ajouter-des-proprietes-graphiques" class="nav-link">Ajouter des propriétés graphiques</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#implementation-dune-classe-coord" class="nav-link">Implémentation d'une classe Coord</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#implementation-de-la-classe-couleur" class="nav-link">Implémentation de la classe Couleur</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#implementation-de-la-classe-propriete" class="nav-link">Implémentation de la classe Propriete</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#implementation-de-la-classe-graphevalue" class="nav-link">Implémentation de la classe GrapheValue</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
 
 <h1 id="ajouter-des-proprietes-graphiques">Ajouter des propriétés graphiques</h1>
 <p>L'objectif de l'étape est d'ajouter aux graphes que nous manipulerons des informations graphiques (position, couleur, etc).</p>
@@ -127,9 +148,11 @@
     c[0] = 0.1;
     c[1] = 0.3;
 </code></pre>
+
 <p>Nous devons définir l'opérateur <strong>[]</strong> :</p>
 <pre><code>    float &amp; operator[](int dim);
 </code></pre>
+
 <p>Comme vous pouvez le remarquer, cette méthode renverra une référence sur l'attribut correspondant de la coordonnée afin qu'on puisse en changer la valeur (comme dans l'exemple ci-dessus). En revanche, telle qu'elle est déclarée, cette méthode ne pourra pas être utilisée si la coordonnée est constante (ou une référence constante) car elle n'est pas déclarée comme méthode constante :</p>
 <pre><code>    void fonction(const Coord &amp; c){
         c[0]; // interdit, ne compilera pas car [] n'est pas constante et que c est une référence constante
@@ -138,9 +161,11 @@
         co[0]; // idem, co est constant
     }
 </code></pre>
+
 <p>Nous allons donc surcharger cet opérateur (ajouter une deuxième "version"):</p>
 <pre><code>    float operator[](int dim) const;
 </code></pre>
+
 <p>Vous pouvez noter que l'on a ajouté le mot-clef <em>const</em> et que cette sucharge ne renvoie plus une référence sur l'attribut. Si cette méthode est utilisée, il n'est pas possible de modifier l'attribut concerné. Le choix de l'une ou l'autre des implémentations de l'opérateur se fait automatiquement (vous n'avez rien à faire) :</p>
 <pre><code>    Coord c;
     const Coord cConst;
@@ -148,10 +173,12 @@
     c[0] = ...; // appel de l'opérateur non-const
     cConst [0]; // appel l'opérateur const
 </code></pre>
+
 <p>Implémentez la classe Coord dans <strong>src</strong>.</p>
 <p>Vous ne pourrez pas utiliser le Makefile pour compiler votre code (il manque certains fichiers pour le moment). Pour compiler la classe et vous assurer qu'elle ne contient pas d'erreur de syntaxe, exécutez la commande suivante dans un terminal :</p>
 <pre><code>    g++ -std=c++17 -Wall -Wextra -pedantic src/Sommet.cpp -I./include -c 
 </code></pre>
+
 <p>Si vous n'avez pas d'erreur, passez à la suite.</p>
 <h2 id="implementation-de-la-classe-couleur">Implémentation de la classe Couleur</h2>
 <p>Cette classe est très similaire à la classe Coord. La différence est qu'une couleur n'est pas définie par 2 réels mais par 4 valeurs entières correspondant aux canaux RGB et à la transparence. De plus, nous ne ferons pas d'opération arithmétique sur les couleurs, la classe devra donc présenter les méthodes suivantes :</p>
@@ -164,6 +191,8 @@
 <li>bool operator==(const Couleur &amp;  c) const;</li>
 </ul>
 <p>Déclarez (dans include) et implémentez la classe (dans src).</p>
+<p><code>couleur_a.interpoler(couleur_b, ratio)</code> revient à calculer la couleur suivante :
+<code>couleur_a + (couleur_b-couleur_a)*ratio</code>.</p>
 <p>Compilez votre code (de façon analogue) et passez à la suite si vous n'avez pas d'erreur.</p>
 <h2 id="implementation-de-la-classe-propriete">Implémentation de la classe Propriete</h2>
 <p>Cette classe permettra d'associer à des sommets et à des arêtes, une valeur. Elle nous permettra de stocker par exemple, la position d'un sommet ou encore sa couleur.</p>
@@ -179,6 +208,7 @@ class MaClasseGenerique {
         void unExempleDeMethodeTemplate(T param);
 };
 </code></pre>
+
 <p>Ici, on indique que la classe MaClasseGenerique est générique grace au mot-clef <em>template</em>, comme la classe ne manipule qu'un type (par exemple, comme un set&lt;int>) on indique un seul paramètre entre les chevrons (&lt;typename T>). On indique ici que dans la suite de la déclaration de la classe, <strong>T</strong> sera le type paramétré, par exemple si on instancie un objet MaClasseGenerique&lt;int> alors T est un int, si on instancie un objet MaClasseGenerique&lt;Coord> alors T est un Coord.</p>
 <p>Ajoutez dans le répertoire <strong>cxx</strong> un fichier Propriete.hpp (hpp et cxx sont des extensions classiques de classes génériques) contenant la déclaration de la classe générique Propriete contenant les méthodes suivantes :</p>
 <ul>
@@ -196,6 +226,7 @@ class MaClasseGenerique {
         ...
     }
 </code></pre>
+
 <p>Implémentez les méthodes de la classe Propriete.</p>
 <p>Ici, il n'est pas possible de "compiler" simplement Propriete car comme nous l'avons vu les classes génériques ne sont pas réellement compilées. Si vous souhaitez tout de même le faire (nous ne vous le recommandons pas forcément), il vous faudra ajouter une fonction main à la toute fin de Propriete.hpp (après le #endif) qui instanciera une Propriete. Par exemple :</p>
 <pre><code>    int main(){
@@ -204,6 +235,7 @@ class MaClasseGenerique {
         return 0;
     }
 </code></pre>
+
 <p>puis compilez le fichier avec le même type d'instruction que ci-dessus pour Sommet et Arete. N'oubliez pas après de supprimer cette fonction main avant de sauvegarder votre fichier (il n'est pas possible en C++ d'avoir deux fonctions main et main.cpp en fournit déjà une).</p>
 <h2 id="implementation-de-la-classe-graphevalue">Implémentation de la classe GrapheValue</h2>
 <p>Cette classe permettra d'associer aux éléments du graphe des attributs graphiques (des valeurs). Nous listons ici un ensemble de propriétés nécessaires à la bibliothèque d'affichage que nous vous fournissons.</p>
@@ -213,6 +245,7 @@ class MaClasseGenerique {
         ...
     };
 </code></pre>
+
 <p>indique que MaClasse hérite de manière publique de ClasseMere </p>
 <p>NB : le mot-clef public peut être remplacé par private ou protected ce qui change la visibilité des méthodes et attributs de ClasseMere quand on y accède via MaClasse.</p>
 <p>Déclarer la classe GrapheValue dans <strong>include</strong> avec les méthodes suivantes :</p>
@@ -239,76 +272,35 @@ class MaClasseGenerique {
     Propriete&lt;Coord&gt; positions;
     Propriete&lt;std::string&gt; labels;
 </code></pre>
+
 <p>Comme vous pouvez le remarquer, la méthode surchargée est suivie du mot-clef <strong>override</strong>, cela indique au compilateur qu'il s'agit d'une redéfinition d'une méthode déjà définie plus haut dans la hiérarchie de classe (ici dans la classe Graphe). Il faut aussi indiquer dans la classe Graphe, que la méthode surchargée est polymorphe (le polymorphisme fonctionne avec cette méthode -- ce n'est pas automatique en C++), pour cela vous devez ajouter le mot-clef <strong>virtual</strong> dans la déclaration de la méthode :</p>
 <pre><code>    // Graphe.h
     virtual bool charger(std::string fichier);
 </code></pre>
+
 <p>NB : Vous pourrez ajouter d'autres propriétés plus tard, lorsque vous n'utiliserez plus libVueGraphe.a, c'est à dire à partir de l'étape 3.</p>
 <p>Déclarez la classe GrapheValue dans include et implémentez-là dans src.</p>
 <p>Maintenant, vous êtes normalement prêts à compiler et si tout se passe bien, à exécuter votre programme <span>&#129310;</span></p>
-<p>Si vous voyez votre graphe s'afficher, vous pouvez passer à l'étape suivante !</p>
+<p>Si vous voyez votre graphe s'afficher, vous pouvez passer à l'étape suivante !</p></div>
+            </div>
+        </div>
 
-<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
-  <li class="last-updated-holder displayDate loading">
-    <span class="last-updated-text">Last updated:</span>
-    <time role="presentation" datetime="2018-10-25T00:00:00.000Z" data-article-date-source="ms.date"></time>
-  </li>
-<!--
-  <li class="readingTime">
-    2 minutes to read
-  </li>
--->
-  <li class="contributors-holder">
-    <span class="contributors-text">Contributors</span>
-    <ul class="contributors" data-bi-name="contributors"></ul>
-  </li>
-</ul>
-</div>
-        <div class="col-md-3"><div class="navbar-light navbar-expand-md hidden-print sticky-top sticky-offset" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
+        <footer class="col-md-12">
+            <hr>
+                <p>IUT de Bordeaux</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
 
-    <div id="toc-collapse" class="navbar-collapse collapse card">
-        <ul class="nav flex-column bs-sidenav">
-            <li class="nav-item main"><a class="nav-link" href="#ajouter-des-proprietes-graphiques">Ajouter des propriétés graphiques</a></li>
-                <li class="nav-item">
-                    <a href="#implementation-dune-classe-coord" class="nav-link">Implémentation d'une classe Coord</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#implementation-de-la-classe-couleur" class="nav-link">Implémentation de la classe Couleur</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#implementation-de-la-classe-propriete" class="nav-link">Implémentation de la classe Propriete</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#implementation-de-la-classe-graphevalue" class="nav-link">Implémentation de la classe GrapheValue</a>
-                </li>
-        </ul>
-    </div>
-</div></div>
-      </div>
-      </div>
-
-      <footer class="col-md-12">
-	<hr>
-	<div class="container">
-	  <p>IUT de Bordeaux</p>
-	</div>
-      </footer>
-      <script>
-	var base_url = ".",
-            shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-      </script>
-      <script src="js/base.js" defer></script>
-
-      <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <p class="h4 modal-title">Keyboard Shortcuts</p>
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
