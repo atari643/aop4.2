@@ -81,7 +81,7 @@ bool GrapheValue::charger(std::string fichier)
 
 Sommet GrapheValue::ajouterSommet()
 {
-    std::cout << "ajout sommet" << std::endl;
+    //std::cout << "ajout sommet" << std::endl;
     Sommet n=Graphe::ajouterSommet();
     notifierAjout(n);
     return n;
@@ -89,7 +89,7 @@ Sommet GrapheValue::ajouterSommet()
 
 Arete GrapheValue::ajouterArete(const Sommet &n1, const Sommet &n2)
 {
-    std::cout << "ajout arete" << std::endl;
+    //std::cout << "ajout arete" << std::endl;
     Arete e=Graphe::ajouterArete(n1, n2);
     notifierAjout(e);
     return e;
@@ -97,28 +97,28 @@ Arete GrapheValue::ajouterArete(const Sommet &n1, const Sommet &n2)
 
 void GrapheValue::supprimerSommet(const Sommet &n)
 {
-    std::cout << "supprimer" << std::endl;
+    //std::cout << "supprimer" << std::endl;
     notifierSuppression(n);
     Graphe::supprimerSommet(n);
 }
 
 void GrapheValue::supprimerArete(const Arete &e)
 {
-    std::cout << "supprimer arete" << std::endl;
+    //std::cout << "supprimer arete" << std::endl;
     notifierSuppression(e);
     Graphe::supprimerArete(e);
 }
 
 void GrapheValue::positionSommet(Sommet n, Coord c)
 {
-    std::cout << "position sommet" << std::endl;
+    //std::cout << "position sommet" << std::endl;
     notifierProprieteChangee(n);
     positions.changer(n, c);
 }
 
 void GrapheValue::positionsMinMax(Coord &min, Coord &max)
 {
-    std::cout << "positions min max" << std::endl;
+    //std::cout << "positions min max" << std::endl;
     for (auto n : sommets())
     {
         Coord c = positionSommet(n);
@@ -137,45 +137,45 @@ void GrapheValue::couleurSommet(Sommet n, Couleur c)
 
 Couleur GrapheValue::couleurSommet(Sommet n)
 {
-    std::cout << "couleur sommet 2" << std::endl;
+    //std::cout << "couleur sommet 2" << std::endl;
     return couleurs.valeur(n);
 }
 
 void GrapheValue::couleurArete(Arete e, Couleur c)
 {
-    std::cout << "couleur arete" << std::endl;
+    //std::cout << "couleur arete" << std::endl;
     notifierProprieteChangee(e);
     couleurs.changer(e, c);
 }
 
 Couleur GrapheValue::couleurArete(Arete e)
 {
-    std::cout << "couleur arete 2" << std::endl;
+    //std::cout << "couleur arete 2" << std::endl;
     return couleurs.valeur(e);
 }
 
 void GrapheValue::etiquetteSommet(Sommet n, std::string etiquette)
 {
-    std::cout << "etiquette" << std::endl;
+    //std::cout << "etiquette" << std::endl;
     notifierProprieteChangee(n);
     labels.changer(n, etiquette);
 }
 
 std::string GrapheValue::etiquetteSommet(Sommet n) const
 {
-    std::cout << "etiquette 2" << std::endl;
+    //std::cout << "etiquette 2" << std::endl;
     return labels.valeur(n);
 }
 
 void GrapheValue::etiquetteArete(Arete e, std::string etiquette)
 {
-    std::cout << "etiquette arete" << std::endl;
+    //std::cout << "etiquette arete" << std::endl;
     notifierProprieteChangee(e);
     labels.changer(e, etiquette);
 }
 
 std::string GrapheValue::etiquetteArete(Arete e) const
 {
-    std::cout << "etiquette arete 2" << std::endl;
+    //std::cout << "etiquette arete 2" << std::endl;
     return labels.valeur(e);
 }

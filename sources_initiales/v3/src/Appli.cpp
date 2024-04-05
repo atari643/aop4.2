@@ -13,6 +13,7 @@ Appli::Appli(unsigned int largeur, unsigned int hauteur)
     m_fenetre.create(vm, "Application", sf::Style::Default, sf::ContextSettings(0, 0, 8));
     m_font.loadFromFile(FICHIER_FONT); // Remove duplicate font loading
     m_vue.setSize(m_largeur, m_hauteur);
+    m_vue.setCenter(m_largeur / 2, m_hauteur / 2);
     std::map<Sommet, sf::CircleShape> m_sommets;
     std::map<Sommet, sf::CircleShape> m_etiquette;
     std::map<Arete, std::pair<sf::Vertex, sf::Vertex>> m_aretes;
@@ -70,8 +71,38 @@ void Appli::traiter_evenements()
         {
             // Resize the window
             m_vue.setSize(event.size.width, event.size.height);
-            m_fenetre.setView(m_vue);}
+            m_fenetre.setView(m_vue);
         }
+        else if (event.type == sf::Event::KeyPressed)
+        {
+        if (event.key.code == sf::Keyboard::E)
+        {
+            m_montre_etiquette = !m_montre_etiquette;
+        }
+        else if (event.key.code == sf::Keyboard::C)
+        {
+            m_interpoler_couleurs = !m_interpoler_couleurs;
+        }
+        else if (event.key.code == sf::Keyboard::R)
+        {
+            const Sommet s = *m_g->sommets().begin();
+            Coord min = m_g->positionSommet(s);
+            Coord max = Coord();
+            m_g->positionsMinMax(min, max);
+            // Auto scaling on min and max
+            float scaleFactor = 1.1f; // Adjust the scale factor as needed
+            float deltaX = max[0] - min[0] - 30;
+            float deltaY = max[1] - min[1] + 30;
+            float scaleX = m_fenetre.getSize().x / deltaX;
+            float scaleY = m_fenetre.getSize().y / deltaY;
+            float scale = std::min(scaleX, scaleY) * scaleFactor;
+            RAYON = 2.0f / scale;
+            m_vue.setSize(m_fenetre.getSize().x / scale, m_fenetre.getSize().y / scale);
+            m_vue.setCenter((max[0] + min[0]) / 2, (max[1] + min[1]) / 2);
+            m_fenetre.setView(m_vue);
+        }
+    }
+}
 }
 
 void Appli::dessiner()
@@ -79,7 +110,7 @@ void Appli::dessiner()
     pthread_mutex_lock(&m_mAJFormes);
 
     m_fenetre.clear(sf::Color::White);
-    
+
     for (std::pair<Arete, std::pair<sf::Vertex, sf::Vertex>> a : m_aretes)
     {
         sf::Vertex line[] = {a.second.first, a.second.second};
@@ -93,11 +124,8 @@ void Appli::dessiner()
         m_fenetre.draw(cs);
     }
 
-    const Sommet s = *m_g->sommets().begin();
-    Coord min = m_g->positionSommet(s);
-    Coord max = Coord();
-    m_g->positionsMinMax(min, max);
     pthread_mutex_unlock(&m_mAJFormes);
+
     m_fenetre.display();
 }
 
@@ -134,31 +162,30 @@ void Appli::traiterProprieteChangee(const Sommet &n)
     Couleur color = m_g->couleurSommet(n);
     cs.setPosition(coord[0], coord[1]);
     cs.setFillColor(sf::Color(color[0], color[1], color[2], color[3]));
-    cs.setRadius(RAYON*2);
+    cs.setRadius(RAYON * 2);
     cs.setOutlineThickness(RAYON);
-    pthread_mutex_unlock(&m_mAJFormes);
+    
 
     for (Arete a : m_g->incidentes(n))
     {
         traiterProprieteChangee(a);
     }
+    pthread_mutex_unlock(&m_mAJFormes);
+
+
 }
 void Appli::traiterProprieteChangee(const Arete &e)
 {
-    pthread_mutex_lock(&m_mAJFormes);
 
     Coord src = m_g->positionSommet(m_g->source(e));
     Coord dst = m_g->positionSommet(m_g->destination(e));
     std::pair<sf::Vertex, sf::Vertex> &pos = m_aretes[e];
     pos.first.position = sf::Vector2f(src[0], src[1]);
     pos.second.position = sf::Vector2f(dst[0], dst[1]);
-
-    pthread_mutex_unlock(&m_mAJFormes);
 }
 
 void Appli::creerFormeSommet(const Sommet &n)
 {
-    pthread_mutex_lock(&m_mAJFormes);
 
     sf::CircleShape cercle(RAYON * 2);
     cercle.setOutlineColor(sf::Color::Black);
@@ -167,22 +194,20 @@ void Appli::creerFormeSommet(const Sommet &n)
     cercle.setFillColor(sf::Color(m_g->couleurSommet(n)[0], m_g->couleurSommet(n)[1], m_g->couleurSommet(n)[2], m_g->couleurSommet(n)[3]));
     cercle.setPosition((m_g->positionSommet(n)[0] - RAYON) * SCALE, (m_g->positionSommet(n)[1] - RAYON) * SCALE);
     m_sommets[n] = cercle;
-    pthread_mutex_unlock(&m_mAJFormes);
 }
 
 void Appli::creerFormeArete(Arete e)
 {
-    pthread_mutex_lock(&m_mAJFormes);
 
     sf::Vertex ligne[] = {
         sf::Vertex(sf::Vector2f(m_g->positionSommet(m_g->source(e))[0] * SCALE, m_g->positionSommet(m_g->source(e))[1] * SCALE), sf::Color(m_g->couleurArete(e)[0], m_g->couleurArete(e)[1], m_g->couleurArete(e)[2], m_g->couleurArete(e)[3])),
         sf::Vertex(sf::Vector2f(m_g->positionSommet(m_g->destination(e))[0] * SCALE, m_g->positionSommet(m_g->destination(e))[1] * SCALE), sf::Color(m_g->couleurArete(e)[0], m_g->couleurArete(e)[1], m_g->couleurArete(e)[2]))};
     m_aretes[e] = std::make_pair(ligne[0], ligne[1]);
-    pthread_mutex_unlock(&m_mAJFormes);
 }
 
 void Appli::calculerFormesGeometriques()
 {
+    pthread_mutex_lock(&m_mAJFormes);
     for (const auto &arete : m_g->aretes())
     {
         creerFormeArete(arete);
@@ -191,4 +216,6 @@ void Appli::calculerFormesGeometriques()
     {
         creerFormeSommet(sommet);
     }
+    pthread_mutex_unlock(&m_mAJFormes);
+
 }

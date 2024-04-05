@@ -10,8 +10,8 @@
 #include "signal.h"
 using namespace std;
 
-const int LARGEUR = 1200;
-const int HAUTEUR = 800;
+const int LARGEUR = 1920;
+const int HAUTEUR = 1080;
 
 
 void * miseAJourAppli(void * param){

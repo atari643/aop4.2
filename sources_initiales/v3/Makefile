@@ -19,7 +19,7 @@ DEPFLAGS = -MMD -MP
 # linker flags
 LDFLAGS = 
 # library flags
-LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system -pthread
+LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system -pthread 
 
 INCLUDE = -I./include -I./cxx
 
@@ -76,5 +76,17 @@ clean:
 reset:
 	$(RM) -r $(OBJ)
 	$(RM) -r $(BIN)
+
+# Release flags
+RELEASE_FLAGS = -O3
+
+.PHONY: release
+release: CXXFLAGS += $(RELEASE_FLAGS)
+release: clean all
+
+.PHONY: profile
+profile: CXXFLAGS += -pg
+profile: LDFLAGS += -pg
+profile: clean all
 
 -include $(DEPENDS)

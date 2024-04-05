@@ -1,24 +1,43 @@
 #include "ModeleDeForce.h"
 #include <cmath>
+#include <thread>
+#include <iostream>
+#include <vector>
+
 float maxDeplacement=20;
-int IDEAL = 30;
+int IDEAL = 60;
 ModeleDeForce::ModeleDeForce(GrapheValue *g)
 {
     m_g = g;
+
 }
 
 void ModeleDeForce::executer()
 {
-    initialiserDessin(1200,800);
-    while(maxDeplacement > 0)
+    srand(time(NULL));
+    initialiserDessin(1920,1080);
+
+    int iterations = 0;
+
+    while(maxDeplacement > 0 && iterations < 2000)
     {
+        std::vector<std::thread> threads;
         for (auto sommet : m_g->sommets())
-        {
-            Coord deplacement = calculerForces(sommet);
-            deplacer(sommet, deplacement);
+        { 
+            threads.push_back(std::thread([this, sommet](){
+                Coord deplacement = calculerForces(sommet);
+                deplacer(sommet, deplacement);
+            }));
             
         }
-        maxDeplacement-=0.3;
+        for (auto &t : threads)
+        {
+            t.join();
+        }
+        iterations++;
+        printf("Iterations: %d\n", iterations);
+        maxDeplacement *=0.99;
+
     }
 
 }
@@ -26,7 +45,7 @@ void ModeleDeForce::initialiserDessin( unsigned int largeur, unsigned int hauteu
 {
     for (auto sommet : m_g->sommets())
     {
-        Coord c = {rand() % largeur, rand() % hauteur};
+        Coord c = {float(rand() % largeur), float(rand() % hauteur)};
         m_g->positionSommet(sommet, c);
     }
 }
@@ -38,9 +57,11 @@ Coord ModeleDeForce::calculerForces(const Sommet &v)
 Coord ModeleDeForce::calculerAttractions(const Sommet &v)
 {
     Coord sommeForce = {0, 0};
-    for(auto voisin : m_g->voisins(v))
+    Coord position_v = m_g->positionSommet(v);
+    for(auto u : m_g->voisins(v))
     {
-        Coord vu =  m_g->positionSommet(voisin) - m_g->positionSommet(v);
+        Coord position_voisin = m_g->positionSommet(u);
+        Coord vu =  position_voisin - position_v;
         float dist = vu.norm();
         sommeForce += (vu * ((float) dist / (float) pow(IDEAL, 2)));
 
@@ -74,7 +95,6 @@ Coord ModeleDeForce::calculerRepulsions(const Sommet &v)
 
 void ModeleDeForce::deplacer(const Sommet &v, Coord deplacement)
 {
-    Coord c = m_g->positionSommet(v);
     int deplacementNorm = deplacement.norm(); 
 
     if (deplacementNorm > maxDeplacement) {
